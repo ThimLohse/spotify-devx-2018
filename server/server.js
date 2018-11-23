@@ -5,21 +5,16 @@ import path from 'path';
 import http from 'http';
 
 const app = express();
-const server = http.Server(app);
 
 // MIDDLE WARE //
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
 //app.use(express.static(path.join(__dirname, path.relative(__dirname, '../client/build')))); //use for hosting the build version of the application
-app.get('/', (req, res) => {
-  res.send('Hello From The Server');
+app.get('/ping', (req, res) => {
+  res.send('<h1>pong pong</h1>');
 })
 
-
-server.listen(config.app.port, () => {console.log(`Backend listening to port: ${config.app.port}`)});
-
-process.on('SIGINT', () => {
-console.log('do SIGINT');
-process.exit();
+app.listen(config.app.port, () => {
+  console.log(`App is running on port: ${config.app.port}`)
 });
