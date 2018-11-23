@@ -1,2 +1,1 @@
 require('./../server.js')
-require('./../env_setup/config.js')
