@@ -3,12 +3,24 @@
   "version": "1.0.0",
   "main": "server.js",
   "license": "MIT",
+  "scripts": {
+    "client": "cd ./../client && yarn start",
+    "build-client": "cd ./../client && yarn build",
+    "server": "nodemon --exec babel-node bin/dev",
+    "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\"",
+    "start": "yarn build-client && yarn server"
+  },
   "dependencies": {
+    "body-parser": "^1.18.3",
+    "dotenv": "^6.1.0",
+    "express": "^4.16.4",
+    "spotify-web-api-node": "^4.0.0"
+  },
+  "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.7.0",
     "babel-preset-stage-2": "^6.24.1",
-    "body-parser": "^1.18.3",
-    "dotenv": "^6.1.0",
-    "express": "^4.16.4"
+    "concurrently": "^4.1.0",
+    "nodemon": "^1.18.6"
   }
 }
