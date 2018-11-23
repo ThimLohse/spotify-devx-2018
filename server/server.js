@@ -1,4 +1,4 @@
-import config from './../env-setup/config';
+import config from './env_setup/config';
 import express from 'express';
 import bodyParser from 'body-parser';
 import path from 'path';
