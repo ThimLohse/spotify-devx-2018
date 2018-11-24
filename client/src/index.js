@@ -24,7 +24,7 @@ const handleRoute = (component) => {
     return <Redirect to='/LoginScreen'/>
   }
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(<LoginScreen />, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
