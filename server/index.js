@@ -39,7 +39,6 @@ const spotifyAPI = new spotifyWebApi({
 
 
 // API ENDPOINTS FOR FRONTEND
-app.use('/api', Api);
 
 io.on('connection', (socket) => {
   console.log(`socket connected: ${socket.id}`);
@@ -47,12 +46,14 @@ io.on('connection', (socket) => {
   socket.on('disconnect', () => {
     console.log(`${socket.id} disconnected`);
     userHandler.removeUser(socket.id);
+    io.emit('user_list_changed', userHandler.getFrontendUserList();
   })
 
   socket.on('user_data', (data) => {
     let tracks = [];
     let user = new User(socket.id, data.user_data, data.top_tracks, data.playlists);
     userHandler.addUser(user.getCompiledUser());
+    io.emit('user_list_changed', userHandler.getFrontendUserList();
 
     //console.log(prettyJson.render(userHandler.getUserList(), {}));
 

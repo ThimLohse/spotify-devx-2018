@@ -43,6 +43,19 @@ export class UserHandler {
   getUserList() {
     return this.userList;
   }
+  getFrontendUserList(){
+    let tempList = [...this.userList];
+    let tiny_list = [];
+    tempList.forEach((user) => {
+      tiny_list.push(
+        {
+          name: user.display_name,
+          id: user.id
+      });
+    })
+    return tiny_list;
+
+  }
   randomSelector(tracks) {
     let randomTracks = [];
     let randomLimit = 5;
