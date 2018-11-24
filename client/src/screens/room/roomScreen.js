@@ -23,10 +23,7 @@ class roomScreen extends Component {
     this.state = {
       access_token: props.access_token,
       refresh_token: props.refresh_token,
-      userList: [
-        {name: 'LI'},
-        {name: 'THIM'},
-      ],
+      userList: [],
       colors: ['#509BF5', '#57B560','#57B560','#F474A0', '#1D3264', '#FF4632','#F49B23'],
       images: [img1, img2, img3,img4,img5,img6,img7,img8,img9,img0,],
     }
@@ -106,6 +103,12 @@ class roomScreen extends Component {
         console.log(playList);
         this.createPlaylist(playList);
     })
+
+    this.socket.on('user_list_changed', (new_list) => {
+      let tempState = {...this.state};
+      tempState.userList = new_list;
+      this.setState(tempState);
+    })
   }
 
   getRandomInt(min, max) {
@@ -114,13 +117,15 @@ class roomScreen extends Component {
     return Math.floor(Math.random() * (max - min)) + min; //The maximum is exclusive and the minimum is inclusive
   }
 
+  //this.getRandomInt(0,this.state.images.length)
+
   render() {
     return (
         <div className="room-screen">
 
             {this.state.userList.map((user, index) => {
               return <UserComponent name={user.name} key={index} index={index} 
-              avatar={this.state.images[this.getRandomInt(0,this.state.images.length)]} color={this.state.colors[this.getRandomInt(0,this.state.colors.length)]}/>
+              avatar={this.state.images[index]} color={this.state.colors[index]}/>
             })}
 
             <Button onClick={() => this.generatePlayList()}>
