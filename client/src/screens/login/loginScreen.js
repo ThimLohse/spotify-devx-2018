@@ -12,6 +12,7 @@ export default class LoginScreen extends Component {
       console.log(err.message);
     });
   }
+
   // Fetches our GET route from the Express server. (Note the route we are fetching matches the GET route from server.js
   loginHandler = async () => {
     const response = await fetch('/login');

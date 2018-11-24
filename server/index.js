@@ -5,8 +5,14 @@ import bodyParser from 'body-parser';
 import spotifyWebApi from 'spotify-web-api-node';
 import IO from 'socket.io';
 import http from 'http';
+import prettyJson from 'prettyjson';
+
+// UTIL CLASSES
+import {User, UserHandler} from './Util/PlayListWorker';
 
 const scopes = ['user-top-read'];
+
+const userHandler = new UserHandler();
 
 
 // APP
@@ -34,10 +40,16 @@ io.on('connection', (socket) => {
 
   socket.on('disconnect', () => {
     console.log(`${socket.id} disconnected`);
+    userHandler.removeUser(socket.id);
   })
 
-  socket.on('user_id', (data) => {
-    console.log(data);
+  socket.on('user_data', (data) => {
+    let tracks = [];
+    let user = new User(socket.id, data.access_token, data.refresh_token, tracks);
+    userHandler.addUser(user.getCompiledUser());
+
+    console.log(prettyJson.render(userHandler.getUserList(), {}));
+
   })
 })
 
@@ -65,7 +77,6 @@ app.get('/', (req, res) => {
 app.get('/ping', (req, res) => {
   res.status(200).send('PONG');
 })
-
 
 
 server.listen(config.app.port, () => {
