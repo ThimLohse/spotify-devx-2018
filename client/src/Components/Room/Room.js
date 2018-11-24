@@ -93,7 +93,6 @@ class Room extends Component {
         console.log(playList);
         this.createPlaylist(playList);
     })
-
 }
 
   render() {
