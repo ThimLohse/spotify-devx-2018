@@ -107,7 +107,7 @@ class roomScreen extends Component {
 
     this.socket.on('user_list_changed', (new_list) => {
       let tempState = {...this.state};
-      tempState.userList = new_list;
+      tempState.userList = [...new_list];
       this.setState(tempState);
       console.log(new_list);
     })
