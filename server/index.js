@@ -14,7 +14,6 @@ const spotifyAPI = new spotifyWebApi({
   redirectUri: process.env.REDIRECT_URI
 });
 
-
 // MIDDLE WARE
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
