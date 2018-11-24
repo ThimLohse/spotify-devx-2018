@@ -5,6 +5,7 @@ import UserComponent from '../../components/user-component/userComponent';
 import socketClient from 'socket.io-client';
 import SpotifyWebApi from 'spotify-web-api-node';
 import generateName from 'sillyname';
+import style from './index.css';
 import img0 from '../../assets/albatross.svg';
 import img1 from '../../assets/anteater.svg';
 import img2 from '../../assets/baboon.svg';
@@ -23,7 +24,7 @@ class roomScreen extends Component {
     this.state = {
       access_token: props.access_token,
       refresh_token: props.refresh_token,
-      userList: [],
+      userList: [{name: 'Quentin'}],
       colors: ['#509BF5', '#57B560','#57B560','#F474A0', '#1D3264', '#FF4632','#F49B23'],
       images: [img1, img2, img3,img4,img5,img6,img7,img8,img9,img0,],
     }
@@ -108,6 +109,7 @@ class roomScreen extends Component {
       let tempState = {...this.state};
       tempState.userList = new_list;
       this.setState(tempState);
+      console.log(new_list);
     })
   }
 

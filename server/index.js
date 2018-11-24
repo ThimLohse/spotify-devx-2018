@@ -46,7 +46,7 @@ io.on('connection', (socket) => {
   socket.on('disconnect', () => {
     console.log(`${socket.id} disconnected`);
     userHandler.removeUser(socket.id);
-    io.emit('user_list_changed', userHandler.getFrontendUserList();
+    io.emit('user_list_changed', userHandler.getFrontendUserList());
   })
 
   socket.on('user_data', (data) => {
