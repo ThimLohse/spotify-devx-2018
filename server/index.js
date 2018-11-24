@@ -53,7 +53,7 @@ io.on('connection', (socket) => {
     let tracks = [];
     let user = new User(socket.id, data.user_data, data.top_tracks, data.playlists);
     userHandler.addUser(user.getCompiledUser());
-    io.emit('user_list_changed', userHandler.getFrontendUserList();
+    io.emit('user_list_changed', userHandler.getFrontendUserList());
 
     //console.log(prettyJson.render(userHandler.getUserList(), {}));
 
