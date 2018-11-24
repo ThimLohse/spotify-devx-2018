@@ -35,7 +35,6 @@ class App extends Component {
 
   }
 
-
   render() {
     let view = null;
     view = this.state.isLoggedIn ? <Room access_token={this.state.access_token} refresh_token={this.state.refresh_token}/> : <Login/>;
