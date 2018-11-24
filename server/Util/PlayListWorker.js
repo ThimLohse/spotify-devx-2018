@@ -64,6 +64,7 @@ export class UserHandler {
         returnList.push(track);
       })
     }
+    //TODO Reduce list here ??
     returnList = this.shuffle(this.filterList(returnList));
     return returnList;
   }
@@ -81,13 +82,25 @@ export class UserHandler {
     }
     return result;
   }
+  reduceList(big_list){
+    let tempList = [...big_list];
+    if(big_list.length > 100){
+      for(let i = 100; i < 0; i--){
+        tempList.splice(Math.floor(Math.random()*tempList.length), 1);
+      }
+      return tempList;
+    }
+    else{
+      return tempList;
+    }
+  }
+
   getRandomInt(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
   shuffle (array) {
-
   var i = 0
     , j = 0
     , temp = null
