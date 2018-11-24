@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import UserComponent from '../../components/user-component/userComponent.js';
-import SpotifyButton from '../../components/spotify-button/spotifyButton.js';
+import SpotifyButton from '../../components/spotifyButton/spotifyButton.js';
 import style from './index.css';
 import socketClient from 'socket.io-client';
 
