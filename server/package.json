@@ -15,8 +15,11 @@
     "body-parser": "^1.18.3",
     "dotenv": "^6.1.0",
     "express": "^4.16.4",
+    "localtunnel": "^1.9.1",
     "path": "^0.12.7",
     "postman-request": "^2.88.1-postman.1",
+    "query-string": "^6.2.0",
+    "socket.io": "^2.1.1",
     "spotify-web-api-node": "^4.0.0"
   },
   "devDependencies": {
