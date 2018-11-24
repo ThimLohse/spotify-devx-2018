@@ -24,7 +24,7 @@ class roomScreen extends Component {
     this.state = {
       access_token: props.access_token,
       refresh_token: props.refresh_token,
-      userList: [{name: 'Quentin'}],
+      userList: [],
       colors: ['#509BF5', '#57B560','#57B560','#F474A0', '#1D3264', '#FF4632','#F49B23'],
       images: [img1, img2, img3,img4,img5,img6,img7,img8,img9,img0,],
     }
@@ -107,7 +107,7 @@ class roomScreen extends Component {
 
     this.socket.on('user_list_changed', (new_list) => {
       let tempState = {...this.state};
-      tempState.userList = new_list;
+      tempState.userList = [...new_list];
       this.setState(tempState);
       console.log(new_list);
     })
