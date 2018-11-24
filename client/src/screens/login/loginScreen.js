@@ -8,9 +8,6 @@ export default class LoginScreen extends Component {
   render() {
     return (
       <div className="login-screen">
-          <SpotifyButton>
-          SIGN IN
-          </SpotifyButton>
           <LoginButton/>
       </div>
     );

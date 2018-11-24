@@ -1,10 +1,12 @@
 .user-container{
     border-radius: 100%;
-    width: 5vh;
-    height: 5vh;
+    width: 10vh;
+    height: 10vh;
+    background-color: #FAE74B;
 }
 
 .user-image{
-    width:90%;
-    height: 90%;
+    width: 70%;
+    height: 70%;
+    margin: 15%;
 }

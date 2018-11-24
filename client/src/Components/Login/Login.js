@@ -1,15 +1,11 @@
 import React, {
   Component
 } from 'react';
+import Button from '../spotify-button/spotifyButton.js';
 import queryString from 'query-string';
-import {Button} from 'react-bulma-components/full';
+/*import {Button} from 'react-bulma-components/full';*/
 
 class Login extends Component {
-
-  constructor(props){
-    super(props)
-
-  }
 
   redirectHandler = () => {
 
@@ -33,10 +29,7 @@ class Login extends Component {
 
   render() {
 
-    const style = {
-      'margin': '16px'
-    }
-    return (<Button style={style} color='success' onClick={() => this.redirectHandler()}>Login</Button>);
+    return (<Button onClick={this.redirectHandler().bind(this)}>Login</Button>);
   }
 }
 
