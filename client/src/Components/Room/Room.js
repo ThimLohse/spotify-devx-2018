@@ -69,7 +69,7 @@ class Room extends Component {
     console.log(this.dataObject);
 
     const playLists = await this.spotifyApi.getUserPlaylists();
-    for (var i=0; i < playLists.body.items.length; i++) {
+    for (let i=0; i < playLists.body.items.length; i++) {
       var name = playLists.body.items[i].name;
       var id = playLists.body.items[i].id;
       var json = {
