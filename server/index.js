@@ -54,7 +54,7 @@ io.on('connection', (socket) => {
 
   socket.on('generate_playlist', () => {
     let playList = userHandler.generatePlayList(socket.id);
-    io.to(socket.id).emit(playList);
+    io.to(socket.id).emit('get_playlist', playList);
   })
 })
 
