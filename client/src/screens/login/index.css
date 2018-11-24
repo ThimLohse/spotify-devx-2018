@@ -9,3 +9,15 @@
     width: 100vw;
     background-color: black;
 }
+
+h1.title {
+    font-size: 5vw;
+    font-weight: 1900;
+    color: white;
+}
+
+p.description {
+    font-size: 2vw;
+    color: white;
+    padding: 2vw;
+}
