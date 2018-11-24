@@ -8,6 +8,7 @@ import {
 import socketClient from 'socket.io-client';
 import SpotifyWebApi from 'spotify-web-api-node';
 
+
 class Room extends Component {
   user_data = {};
   top_tracks = [];
@@ -24,6 +25,7 @@ class Room extends Component {
     this.spotifyApi = new SpotifyWebApi();
     this.spotifyApi.setAccessToken(this.state.access_token);
   }
+
 
   componentDidMount() {
     this.socket = socketClient();
