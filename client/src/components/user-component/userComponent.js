@@ -28,8 +28,6 @@ class userComponent extends Component {
       );
   }
 
-      <div className="user-container" style={{top : newTop, left: newLeft}}>
-        <img className="user-image" src={this.props.avatar} alt="user avatar"/>
   updatePosition() {
       var dx = this.state.dx;
       var dy = this.state.dy;
@@ -55,7 +53,7 @@ class userComponent extends Component {
     }
     return (
       <div className="user-container" style={pos}>
-        <img className="user-image" src={owl} alt="user avatar"/>
+      <img className="user-image" src={this.props.avatar} alt="user avatar"/>
         <p>{this.props.name}</p>
       </div>
     );
