@@ -7,7 +7,7 @@ import {
 } from 'react-bulma-components/full';
 import socketClient from 'socket.io-client';
 import SpotifyWebApi from 'spotify-web-api-node';
-
+import generateName from 'sillyname';
 
 
 class Room extends Component {
@@ -20,6 +20,7 @@ class Room extends Component {
       refresh_token: props.refresh_token
     }
     this.socket = null;
+    this.playlist_id = null;
     this.dataObject = {
       user_data: {},
       top_tracks: [],
@@ -32,10 +33,32 @@ class Room extends Component {
 
   generatePlayList(){
     this.socket.emit('generate_playlist');
+    this.createPlaylist([]);
 
   }
+
+  async createPlaylist(tracks){
+    var name = generateName();
+    var id = this.dataObject.user_data.id;
+    var data = await this.spotifyApi.createPlaylist(id, name, { 'public' : false })
+    this.playlist_id = data.body.id;
+    var uri = data.body.uri;
+    var tracks_id = []
+    for (var i=0; i<tracks.length; i++){
+      tracks.push("spotify:track:" + tracks[i].id);
+    }
+    var data2 = await this.spotifyApi.addTracksToPlaylist(this.playlist_id, ["spotify:track:4iV5W9uYEdYUVa79Axb7Rh", "spotify:track:1301WleyT98MSxVHPZCA6M"])
+    console.log(data);
+    var data3 = await this.spotifyApi.play({uri_context: uri});
+    console.log(data3)
+  }
+
   async componentDidMount() {
     this.socket = socketClient();
+
+    this.socket.on('get_playlist', data => {
+      this.createPlaylist(data);
+    });
 
     const userData = await this.spotifyApi.getMe();
     this.dataObject.user_data = userData.body;

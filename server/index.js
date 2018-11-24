@@ -10,7 +10,7 @@ import prettyJson from 'prettyjson';
 // UTIL CLASSES
 import {User, UserHandler} from './Util/PlayListWorker';
 
-const scopes = ['user-top-read'];
+const scopes = ['user-top-read', 'playlist-modify-public', 'playlist-modify-private', 'user-modify-playback-state'];
 
 const userHandler = new UserHandler();
 
