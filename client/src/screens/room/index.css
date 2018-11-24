@@ -1,0 +1,6 @@
+.room-screen {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    background: linear-gradient(#AF2896,#191414);
+}
