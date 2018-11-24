@@ -9,7 +9,7 @@ class userComponent extends Component {
           dx: Math.random(),
           dy: Math.random(),
           xpos: this.getRandomInt(window.innerWidth),
-          ypos: this.getRandomInt(window.innerHeight)
+          ypos: this.getRandomInt(window.innerHeight),
       }
   }
 
@@ -31,10 +31,10 @@ class userComponent extends Component {
   updatePosition() {
       var dx = this.state.dx;
       var dy = this.state.dy;
-      if (this.state.xpos >= window.innerWidth || this.state.xpos < 0) {
+      if (this.state.xpos >= window.innerWidth-30 || this.state.xpos < 0) {
           dx = - dx;
       }
-      if (this.state.ypos >= window.innerHeight || this.state.ypos < 0) {
+      if (this.state.ypos >= window.innerHeight-30 || this.state.ypos < 0) {
           dy = - dy;
       }
       this.setState({
@@ -49,8 +49,10 @@ class userComponent extends Component {
     const pos = {
         position: 'absolute',
         left: this.state.xpos,
-        bottom: this.state.ypos
+        bottom: this.state.ypos,
+        backgroundColor: this.props.color, 
     }
+    
     return (
       <div className="user-container" style={pos}>
       <img className="user-image" src={this.props.avatar} alt="user avatar"/>

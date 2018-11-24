@@ -7,7 +7,13 @@
     max-width: 350px;
     text-align: center;
     color: white;
-    padding: 1%;
     max-height: 10vh;
+    border: 0px;
+    font-size: 1em;
+    padding: 1% 0% 1% 0%;
+    transition:.25s;
+}
 
+.spotify-button:hover{
+    background-color: #1ED760;
 }

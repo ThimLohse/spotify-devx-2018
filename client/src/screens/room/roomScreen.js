@@ -25,6 +25,7 @@ class roomScreen extends Component {
         {name: 'LI'},
         {name: 'THIM'},
       ],
+      colors: ['#509BF5', '#57B560','#57B560','#F474A0', '#1D3264', '#FF4632','#F49B23'],
       images: [img1, img2, img3,img4,img5,img6,img7,img8,img9,img0,],
     }
     this.socket = null;
@@ -54,7 +55,8 @@ class roomScreen extends Component {
         <div className="room-screen">
 
             {this.state.userList.map((user, index) => {
-              return <UserComponent name={user.name} key={index} index={index} avatar={this.state.images[this.getRandomInt(0,this.state.images.length)]}/>
+              return <UserComponent name={user.name} key={index} index={index} 
+              avatar={this.state.images[this.getRandomInt(0,this.state.images.length)]} color={this.state.colors[this.getRandomInt(0,this.state.colors.length)]}/>
             })}
 
             <SpotifyButton onClick={this.generatePlaylist()}>
