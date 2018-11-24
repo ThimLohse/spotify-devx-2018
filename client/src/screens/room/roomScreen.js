@@ -41,7 +41,7 @@ class roomScreen extends Component {
     this.spotifyApi.setAccessToken(this.state.access_token);
   }
 
-  
+
   generatePlayList(){
     this.socket.emit('generate_playlist');
   }
@@ -126,7 +126,7 @@ class roomScreen extends Component {
         <div className="room-screen">
 
             {this.state.userList.map((user, index) => {
-              return <UserComponent name={user.name} key={index} index={index} 
+              return <UserComponent name={user.name} key={index} index={index}
               avatar={this.state.images[index]} color={this.state.colors[index]}/>
             })}
 
