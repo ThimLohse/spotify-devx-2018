@@ -53,6 +53,7 @@ export class UserHandler {
           id: user.id
       });
     })
+    console.log(tiny_list);
     return tiny_list;
 
   }
