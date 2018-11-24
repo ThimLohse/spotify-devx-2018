@@ -6,6 +6,7 @@ import spotifyWebApi from 'spotify-web-api-node';
 import IO from 'socket.io';
 import http from 'http';
 import prettyJson from 'prettyjson';
+import Api from './Router/Api';
 
 // UTIL CLASSES
 import {User, UserHandler} from './Util/PlayListWorker';
@@ -35,6 +36,11 @@ const spotifyAPI = new spotifyWebApi({
 /** Setup to serve static content **/
 //app.use(express.static(path.join(__dirname, path.relative(__dirname, './../client/build'))));
 
+
+
+// API ENDPOINTS FOR FRONTEND
+app.use('/api', Api);
+
 io.on('connection', (socket) => {
   console.log(`socket connected: ${socket.id}`);
 
@@ -58,6 +64,8 @@ io.on('connection', (socket) => {
   })
 })
 
+
+// APP ENDPOINTS FOR LOGIN
 app.get('/login', (req, res) => {
   let authorizeURL = spotifyAPI.createAuthorizeURL(scopes, null, true);
   res.status(200).send({url: authorizeURL});
@@ -82,6 +90,8 @@ app.get('/', (req, res) => {
 app.get('/ping', (req, res) => {
   res.status(200).send('PONG');
 })
+
+
 
 
 server.listen(config.app.port, () => {
