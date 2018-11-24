@@ -64,7 +64,8 @@ export class UserHandler {
         returnList.push(track);
       })
     }
-    return this.filterList(returnList);
+    returnList = this.shuffle(this.filterList(returnList));
+    return returnList;
   }
   filterList(unfiltered_list) {
     const result = [];
@@ -85,5 +86,19 @@ export class UserHandler {
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
+  shuffle (array) {
+
+  var i = 0
+    , j = 0
+    , temp = null
+
+  for (i = array.length - 1; i > 0; i -= 1) {
+    j = Math.floor(Math.random() * (i + 1))
+    temp = array[i]
+    array[i] = array[j]
+    array[j] = temp
+  }
+  return array;
+}
 
 }

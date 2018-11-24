@@ -33,31 +33,28 @@ class Room extends Component {
 
   generatePlayList(){
     this.socket.emit('generate_playlist');
-    this.createPlaylist([]);
   }
 
   async createPlaylist(tracks){
-    var name = generateName();
-    var id = this.dataObject.user_data.id;
-    var data = await this.spotifyApi.createPlaylist(id, name, { 'public' : false })
+    let name = generateName();
+    let id = this.dataObject.user_data.id;
+    let data = await this.spotifyApi.createPlaylist(id, name, { 'public' : false })
+
     this.playlist_id = data.body.id;
-    var uri = data.body.uri;
-    var tracks_id = []
-    for (var i=0; i<tracks.length; i++){
-      tracks.push("spotify:track:" + tracks[i].id);
+    let uri = data.body.uri;
+
+    let tracks_id = []
+    for (let i = 0; i < tracks.length; i++){
+      tracks_id.push("spotify:track:" + tracks[i].id);
     }
-    var data2 = await this.spotifyApi.addTracksToPlaylist(this.playlist_id, ["spotify:track:4iV5W9uYEdYUVa79Axb7Rh", "spotify:track:1301WleyT98MSxVHPZCA6M"])
-    console.log(data);
-    var data3 = await this.spotifyApi.play({uri_context: uri});
-    console.log(data3)
+
+    let data2 = await this.spotifyApi.addTracksToPlaylist(this.playlist_id, tracks_id)
+    let data3 = await this.spotifyApi.play({context_uri: uri, offset: {position: 0}});
+
   }
 
   async componentDidMount() {
     this.socket = socketClient();
-
-    this.socket.on('get_playlist', data => {
-      this.createPlaylist(data);
-    });
 
     const userData = await this.spotifyApi.getMe();
     this.dataObject.user_data = userData.body;
@@ -93,7 +90,8 @@ class Room extends Component {
     }
     this.socket.emit('user_data', this.dataObject);
     this.socket.on('get_playlist', playList => {
-      console.log(playList);
+        console.log(playList);
+        this.createPlaylist(playList);
     })
 
 }
