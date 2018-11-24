@@ -6,6 +6,8 @@ class userComponent extends Component {
       super(props);
       
       this.state = {
+          currentSizeIndex: 0,
+          sizes: [window.innerHeight*.1, window.innerHeight*.08],
           dx: Math.random(),
           dy: Math.random(),
           xpos: this.getRandomInt(window.innerWidth),
@@ -22,10 +24,8 @@ class userComponent extends Component {
   }
 
   componentDidMount() {
-      this.userComponentId = setInterval(
-        () => this.updatePosition(),
-        10
-      );
+      setInterval( () => this.updatePosition(), 10);
+      setInterval( () => this.updateSize(), 500);
   }
 
   updatePosition() {
@@ -45,12 +45,20 @@ class userComponent extends Component {
       })
   }
 
+  updateSize() {
+      this.setState({
+          currentSizeIndex: (this.state.currentSizeIndex + 1)%2,
+      })
+  }
+
   render() {
     const pos = {
         position: 'absolute',
         left: this.state.xpos,
         bottom: this.state.ypos,
         backgroundColor: this.props.color, 
+        width: this.state.sizes[this.state.currentSizeIndex],
+        height: this.state.sizes[this.state.currentSizeIndex],
     }
     
     return (
