@@ -5,6 +5,7 @@ import queryString from 'query-string';
 import {Button} from 'react-bulma-components/full';
 import socketClient from 'socket.io-client';
 
+
 class Room extends Component {
 
   constructor(props){
@@ -17,8 +18,10 @@ class Room extends Component {
   }
 
   componentDidMount(){
+
     this.socket = socketClient();
-    this.socket.emit('user_id', this.state);
+    this.socket.emit('user_data', this.state);
+
 
   }
 
