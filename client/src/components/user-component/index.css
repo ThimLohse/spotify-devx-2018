@@ -5,6 +5,7 @@
     background-color: #FAE74B;
     text-align: center;
     position: absolute;
+    box-shadow: 0 5px 15px 0px rgba(0,0,0,0.6);
 }
 
 .user-container p{
