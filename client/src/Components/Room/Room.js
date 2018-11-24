@@ -67,7 +67,7 @@ class Room extends Component {
     let _this = this;
     for (let i=0; i<10; i++) {
       var seeds = [];
-      for (let j=0; j<3; j++) {
+      for (let j=0; j<5; j++) {
          seeds.push(tracks[Math.floor(Math.random()*tracks.length)].id);
       }
       this.spotifyApi.getRecommendations({ seed_tracks: seeds })
