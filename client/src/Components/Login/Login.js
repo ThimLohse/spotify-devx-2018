@@ -1,7 +1,6 @@
 import React, {
   Component
 } from 'react';
-import queryString from 'query-string';
 import {Button} from 'react-bulma-components/full';
 
 class Login extends Component {

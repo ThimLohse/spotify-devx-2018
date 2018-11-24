@@ -8,8 +8,6 @@ import {
 import socketClient from 'socket.io-client';
 import SpotifyWebApi from 'spotify-web-api-node';
 
-
-
 class Room extends Component {
 
 
@@ -30,10 +28,11 @@ class Room extends Component {
     this.spotifyApi.setAccessToken(this.state.access_token);
   }
 
+
   generatePlayList(){
     this.socket.emit('generate_playlist');
-
   }
+
   async componentDidMount() {
     this.socket = socketClient();
 
@@ -70,9 +69,14 @@ class Room extends Component {
       this.dataObject.playlists[i]["tracks"] = temp;
     }
     this.socket.emit('user_data', this.dataObject);
+    this.socket.on('get_playlist', playList => {
+      console.log(playList);
+    })
+
 }
+
   render() {
-    console.log(this.state);
+
     return (
       <div>
       <p>THIS IS THE ROOM </p>
