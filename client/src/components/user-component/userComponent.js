@@ -8,7 +8,7 @@ class userComponent extends Component {
     return (
       <div className="user-container">
         <img className="user-image" src={owl} alt="user avatar"/>
-        <p>JESPER</p>
+        <p>{this.props.name}</p>
       </div>
     );
   }
