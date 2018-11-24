@@ -2,8 +2,8 @@ import React, {
   Component
 } from 'react';
 import './App.css';
-import Login from './Components/Login/Login';
-import Room from './Components/Room/Room';
+import Login from './screens/login/loginScreen.js';
+import Room from './screens/room/roomScreen.js';
 import queryString from 'query-string';
 import {Button} from 'react-bulma-components/full';
 
@@ -15,7 +15,7 @@ class App extends Component {
     this.state = {
       access_token: null,
       refresh_token: null,
-        isLoggedIn: false
+      isLoggedIn: false
     }
   }
   componentDidMount() {
@@ -29,8 +29,6 @@ class App extends Component {
 
       this.setState(tempState);
       window.location.hash = '';
-
-
     }
 
   }

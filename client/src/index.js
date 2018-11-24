@@ -5,7 +5,9 @@ import * as serviceWorker from './serviceWorker';
 import LoginScreen from './screens/login/loginScreen.js';
 import RoomScreen from './screens/room/roomScreen.js';
 import {BrowserRouter as Router, Route, Redirect} from 'react-router-dom';
+import App from './App.js';
 
+/*
 const App = () => (
     <Router>
       <div>
@@ -13,18 +15,20 @@ const App = () => (
         <Route path = "/room" render={()=>handleRoute(<RoomScreen/>)}/>
       </div>
     </Router>
-)
+)*/
 
+/*
 const handleRoute = (component) => {
-    /*
-    if(sessionStorage.isLoggedIn==='true'){
-      return component
-    } else {
-      return <Redirect to='/LoginScreen'/>
-    }*/
-
-    return component;
+  
+  if(sessionStorage.isLoggedIn==='true'){
+    return component
+  } else {
+    return <Redirect to='/LoginScreen'/>
   }
+
+  return component;
+}
+*/
 
 ReactDOM.render(<App />, document.getElementById('root'));
 

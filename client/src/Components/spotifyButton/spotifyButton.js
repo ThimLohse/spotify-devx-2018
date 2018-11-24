@@ -5,9 +5,9 @@ class spotifyButton extends Component {
 
   render() {
     return (
-      <div className="spotify-button" onClick={this.props.handleClick}>
+      <button className="spotify-button" onClick={() => this.props.onClick()}>
         {this.props.children}
-      </div>
+      </button>
     );
   }
 }

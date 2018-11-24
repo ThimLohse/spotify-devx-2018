@@ -19,8 +19,13 @@ class userComponent extends Component {
   }
 
   render() {
+    
+    var newTop = this.getRandomInt(0, 200);
+    var newLeft = this.getRandomInt(0, 500);
+
     return (
-      <div className="user-container">
+
+      <div className="user-container" style={{top : newTop, left: newLeft}}>
         <img className="user-image" src={owl} alt="user avatar"/>
         <p>{this.props.name}</p>
       </div>
