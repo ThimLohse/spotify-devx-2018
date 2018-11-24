@@ -24,12 +24,12 @@ class roomScreen extends Component {
     this.state = {
       access_token: props.access_token,
       refresh_token: props.refresh_token,
-      userList: [{name: 'Quentin'}],
+      userList: [],
       colors: ['#509BF5', '#57B560','#57B560','#F474A0', '#1D3264', '#FF4632','#F49B23'],
       images: [img1, img2, img3,img4,img5,img6,img7,img8,img9,img0,],
     }
 
-    this.socket = null;
+    this.socket = socketClient();
     this.playlist_id = null;
     this.dataObject = {
       user_data: {},
@@ -65,7 +65,6 @@ class roomScreen extends Component {
   }
 
   async componentDidMount() {
-    this.socket = socketClient();
 
     const userData = await this.spotifyApi.getMe();
     this.dataObject.user_data = userData.body;
@@ -78,7 +77,7 @@ class roomScreen extends Component {
       })
     }
     console.log(this.dataObject);
-
+/*
     const playLists = await this.spotifyApi.getUserPlaylists();
     for (let i=0; i < playLists.body.items.length; i++) {
       var name = playLists.body.items[i].name;
@@ -99,6 +98,7 @@ class roomScreen extends Component {
       }
       this.dataObject.playlists[i]["tracks"] = temp;
     }
+    */
     this.socket.emit('user_data', this.dataObject);
     this.socket.on('get_playlist', playList => {
         console.log(playList);
@@ -106,9 +106,8 @@ class roomScreen extends Component {
     })
 
     this.socket.on('user_list_changed', (new_list) => {
-      let tempState = {...this.state};
-      tempState.userList = new_list;
-      this.setState(tempState);
+      let tempList = [...new_list];
+      this.setState({userList: [...tempList]});
       console.log(new_list);
     })
   }
@@ -122,14 +121,19 @@ class roomScreen extends Component {
   //this.getRandomInt(0,this.state.images.length)
 
   render() {
+
+    let users = null;
+    users = (
+      <div>
+      {this.state.userList.map((user, index) => {
+        return <UserComponent name={user.name} key={user.id} index={index}
+        avatar={this.state.images[index]} color={this.state.colors[index]}/>
+      })}
+      </div>
+    );
     return (
         <div className="room-screen">
-
-            {this.state.userList.map((user, index) => {
-              return <UserComponent name={user.name} key={index} index={index}
-              avatar={this.state.images[index]} color={this.state.colors[index]}/>
-            })}
-
+            {users}
             <Button onClick={() => this.generatePlayList()}>
             MASH PLAYLIST
             </Button>

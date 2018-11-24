@@ -4,12 +4,12 @@ import style from './index.css';
 class userComponent extends Component {
   constructor(props) {
       super(props);
-      
+      this.userComponentId = null;
       this.state = {
           dx: Math.random(),
           dy: Math.random(),
-          xpos: this.getRandomInt(window.innerWidth),
-          ypos: this.getRandomInt(window.innerHeight),
+          xpos: Math.floor(this.getRandomInt(window.innerWidth)/2 + window.innerWidth/5),
+          ypos: Math.floor(this.getRandomInt(window.innerHeight)/2 + window.innerHeight/5),
       }
   }
 
@@ -26,6 +26,10 @@ class userComponent extends Component {
         () => this.updatePosition(),
         10
       );
+  }
+  componentWillUnmount(){
+    clearInterval(this.userComponentId);
+    this.userComponentId = null;
   }
 
   updatePosition() {
@@ -50,9 +54,9 @@ class userComponent extends Component {
         position: 'absolute',
         left: this.state.xpos,
         bottom: this.state.ypos,
-        backgroundColor: this.props.color, 
+        backgroundColor: this.props.color,
     }
-    
+
     return (
       <div className="user-container" style={pos}>
       <img className="user-image" src={this.props.avatar} alt="user avatar"/>
