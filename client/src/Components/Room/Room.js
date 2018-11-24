@@ -9,10 +9,9 @@ import socketClient from 'socket.io-client';
 import SpotifyWebApi from 'spotify-web-api-node';
 
 
+
 class Room extends Component {
-  user_data = {};
-  top_tracks = [];
-  playlists = []
+
 
   constructor(props) {
     super(props)
@@ -21,88 +20,64 @@ class Room extends Component {
       refresh_token: props.refresh_token
     }
     this.socket = null;
+    this.dataObject = {
+      user_data: {},
+      top_tracks: [],
+      playlists: []
+    };
 
     this.spotifyApi = new SpotifyWebApi();
     this.spotifyApi.setAccessToken(this.state.access_token);
   }
 
+  generatePlayList(){
+    this.socket.emit('generate_playlist');
 
-  componentDidMount() {
+  }
+  async componentDidMount() {
     this.socket = socketClient();
 
-    var _this = this
+    const userData = await this.spotifyApi.getMe();
+    this.dataObject.user_data = userData.body;
 
-    this.spotifyApi.getMe()
-    .then(function(data) {
-      _this.user_data = data.body
-      console.log('User data: ', data.body);
-      _this.socket.emit('user_data', _this.user_data);
+    const topTracks = await this.spotifyApi.getMyTopTracks();
+    for (var i=0; i < topTracks.body.items.length; i++) {
+      this.dataObject.top_tracks.push({
+        name: topTracks.body.items[i].name,
+        id: topTracks.body.items[i].id
+      })
+    }
+    console.log(this.dataObject);
 
-    }, function(err) {
-      console.log('Something went wrong!', err);
-    });
-
-
-    this.spotifyApi.getMyTopTracks()
-    .then(function(data) {
-      for (var i=0; i < data.body.items.length; i++) {
-        _this.top_tracks.push({
-          name: data.body.items[i].name,
-          id: data.body.items[i].id
-        })
+    const playLists = await this.spotifyApi.getUserPlaylists();
+    for (var i=0; i < playLists.body.items.length; i++) {
+      var name = playLists.body.items[i].name;
+      var id = playLists.body.items[i].id;
+      var json = {
+        name: name,
+        id: id,
+        tracks: []
       }
-      console.log('Top tracks: ', _this.top_tracks);
-      _this.socket.emit('top_tracks', _this.top_tracks);
-
-    }, function(err) {
-      console.log('Something went wrong!', err);
-    });
-
-
-    this.spotifyApi.getUserPlaylists()
-    .then(function(data) {
-      console.log('User playlists: ', data.body.items);
-      for (var i=0; i < data.body.items.length; i++) {
-        var name = data.body.items[i].name;
-        var id = data.body.items[i].id;
-        var json = {
-          name: name,
-          id: id,
-          tracks: []
-        }
-        _this.playlists.push(json)
-        _this.getPlaylistTracks(_this, i, id);
-      }
-      console.log(_this.playlists)
-
-    }, function(err) {
-      console.log('Something went wrong!', err);
-    });
-  }
-
-  getPlaylistTracks(_this, i, id) {
-    _this.spotifyApi.getPlaylistTracks(id)
-    .then(function(data){
+      this.dataObject.playlists.push(json)
+      let tracks = await this.spotifyApi.getPlaylistTracks(id)
       var temp = []
-      for (var j=0; j < data.body.items.length; j++) {
+      for (var j=0; j < tracks.body.items.length; j++) {
         temp.push({
-          name: data.body.items[j].track.name,
-          id: data.body.items[j].track.id
+          name: tracks.body.items[j].track.name,
+          id: tracks.body.items[j].track.id
         })
       }
-      _this.playlists[i]["tracks"] = temp;
-
-    }, function(err) {
-      console.log('Something went wrong!', err);
-    });
-  }
-
+      this.dataObject.playlists[i]["tracks"] = temp;
+    }
+    this.socket.emit('user_data', this.dataObject);
+}
   render() {
     console.log(this.state);
-    return ( <
-      div >
-      THIS IS THE ROOM <
-      /div>
+    return (
+      <div>
+      <p>THIS IS THE ROOM </p>
+      <Button onClick={() => this.generatePlayList()} color="primary" size="large">Generate</Button>
+      </div>
     );
   }
 }

@@ -45,11 +45,16 @@ io.on('connection', (socket) => {
 
   socket.on('user_data', (data) => {
     let tracks = [];
-    let user = new User(socket.id, data.access_token, data.refresh_token, tracks);
+    let user = new User(socket.id, data.user_data, data.top_tracks, data.playlists);
     userHandler.addUser(user.getCompiledUser());
 
-    console.log(prettyJson.render(userHandler.getUserList(), {}));
+    //console.log(prettyJson.render(userHandler.getUserList(), {}));
 
+  })
+
+  socket.on('generate_playlist', () => {
+    let playList = userHandler.generatePlayList(socket.id);
+    io.to(socket.id).emit(playList);
   })
 })
 
