@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class loginButton extends Component {
+class roomScreen extends Component {
   render() {
     return (
         <div/>
@@ -8,4 +8,4 @@ class loginButton extends Component {
   }
 }
 
-export default loginButton;
+export default roomScreen;

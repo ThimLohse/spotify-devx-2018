@@ -1,8 +1,28 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
 import * as serviceWorker from './serviceWorker';
+import LoginScreen from './screens/login';
+import {BrowserRouter as Router, Route, Redirect} from 'react-router-dom';
+
+const App = () => (
+    <Router>
+      <div>
+        <Route path = "/" render={()=>{ return handleRoute(<LoginScreen/>)}}/>
+      </div>
+    </Router>
+)
+
+const handleRoute = (component) => {
+    /*
+    if(sessionStorage.isLoggedIn==='true'){
+      return component
+    } else {
+      return <Redirect to='/LoginScreen'/>
+    }*/
+
+    return <Redirect to='/LoginScreen'/>
+  }
 
 ReactDOM.render(<App />, document.getElementById('root'));
 
