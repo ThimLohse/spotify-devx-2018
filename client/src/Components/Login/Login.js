@@ -3,6 +3,7 @@ import React, {
 } from 'react';
 import Button from '../spotify-button/spotifyButton.js';
 import queryString from 'query-string';
+import {BrowserRouter as Router, Route, Redirect} from 'react-router-dom';
 /*import {Button} from 'react-bulma-components/full';*/
 
 class Login extends Component {
@@ -14,7 +15,6 @@ class Login extends Component {
     }).catch((err) => {
       console.log(err.message);
     });
-
   }
   // Fetches our GET route from the Express server. (Note the route we are fetching matches the GET route from server.js
   loginHandler = async () => {
@@ -28,7 +28,6 @@ class Login extends Component {
   };
 
   render() {
-
     return (<Button onClick={this.redirectHandler().bind(this)}>Login</Button>);
   }
 }

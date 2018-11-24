@@ -7,7 +7,7 @@ class roomScreen extends Component {
   render() {
     return (
         <div className="room-screen">
-          <UserComponent/>
+          <UserComponent name="LI"/>
         </div>
     );
   }
