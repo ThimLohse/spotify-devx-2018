@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import style from './index.css';
 import SpotifyButton from '../../components/spotify-button/spotifyButton.js';
+import LoginButton from '../../components/Login/Login.js';
 
 export default class LoginScreen extends Component {
 
@@ -10,6 +11,7 @@ export default class LoginScreen extends Component {
           <SpotifyButton>
           SIGN IN
           </SpotifyButton>
+          <LoginButton/>
       </div>
     );
   }
