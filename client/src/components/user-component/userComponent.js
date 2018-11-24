@@ -2,30 +2,60 @@ import React, { Component } from 'react';
 import style from './index.css';
 
 class userComponent extends Component {
-  constructor(props){
-    super(props);
-    this.state = {
-      xPos: 0,
-      yPos: 0,
-      speed: 1,
-    }
+  constructor(props) {
+      super(props);
+      
+      this.state = {
+          dx: Math.random(),
+          dy: Math.random(),
+          xpos: this.getRandomInt(window.innerWidth),
+          ypos: this.getRandomInt(window.innerHeight)
+      }
   }
 
-  getRandomInt(min, max) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min)) + min; //The maximum is exclusive and the minimum is inclusive
+  getRandomInt(max) {
+      return Math.floor(Math.random()*Math.floor(max));
   }
 
-  render() {
-    
-    var newTop = this.getRandomInt(0, 200);
-    var newLeft = this.getRandomInt(0, 500);
+  getRandomFloat() {
+      return Math.random() - 1;
+  }
 
-    return (
+  componentDidMount() {
+      this.userComponentId = setInterval(
+        () => this.updatePosition(),
+        10
+      );
+  }
 
       <div className="user-container" style={{top : newTop, left: newLeft}}>
         <img className="user-image" src={this.props.avatar} alt="user avatar"/>
+  updatePosition() {
+      var dx = this.state.dx;
+      var dy = this.state.dy;
+      if (this.state.xpos >= window.innerWidth || this.state.xpos < 0) {
+          dx = - dx;
+      }
+      if (this.state.ypos >= window.innerHeight || this.state.ypos < 0) {
+          dy = - dy;
+      }
+      this.setState({
+          dx: dx,
+          dy: dy,
+          xpos: this.state.xpos + dx,
+          ypos: this.state.ypos + dy,
+      })
+  }
+
+  render() {
+    const pos = {
+        position: 'absolute',
+        left: this.state.xpos,
+        bottom: this.state.ypos
+    }
+    return (
+      <div className="user-container" style={pos}>
+        <img className="user-image" src={owl} alt="user avatar"/>
         <p>{this.props.name}</p>
       </div>
     );
