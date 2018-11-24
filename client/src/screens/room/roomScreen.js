@@ -27,6 +27,7 @@ class roomScreen extends Component {
       userList: [],
       colors: ['#509BF5', '#57B560','#57B560','#F474A0', '#1D3264', '#FF4632','#F49B23'],
       images: [img1, img2, img3,img4,img5,img6,img7,img8,img9,img0,],
+      generatedPlaylist: false,
     }
 
     this.socket = null;
@@ -44,6 +45,7 @@ class roomScreen extends Component {
 
   generatePlayList(){
     this.socket.emit('generate_playlist');
+    this.setState({ generatedPlaylist: true })  
   }
 
   async createPlaylist(tracks){
@@ -119,16 +121,16 @@ class roomScreen extends Component {
     return Math.floor(Math.random() * (max - min)) + min; //The maximum is exclusive and the minimum is inclusive
   }
 
-  //this.getRandomInt(0,this.state.images.length)
-
   render() {
     return (
         <div className="room-screen">
 
             {this.state.userList.map((user, index) => {
               return <UserComponent name={user.name} key={user.id} index={index}
-              avatar={this.state.images[index]} color={this.state.colors[index]}/>
+                avatar={this.state.images[index]} color={this.state.colors[index]} generatedPlaylist={this.state.generatedPlaylist}/>
             })}
+
+            
 
             <Button onClick={() => this.generatePlayList()}>
             MASH PLAYLIST
