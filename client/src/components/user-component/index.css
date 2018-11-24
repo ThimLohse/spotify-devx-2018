@@ -1,0 +1,10 @@
+.user-container{
+    border-radius: 100%;
+    width: 5vh;
+    height: 5vh;
+}
+
+.user-image{
+    width:90%;
+    height: 90%;
+}

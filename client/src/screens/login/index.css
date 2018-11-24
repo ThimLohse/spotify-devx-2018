@@ -9,14 +9,3 @@
     width: 100vw;
     background-color: black;
 }
-
-.login-button {
-    grid-template-columns: 1fr 1fr;
-    background-color: #57B560;
-    border-radius: 50px;
-    width: 100%;
-    max-width: 350px;
-    text-align: center;
-    color: white;
-    padding: 1%;
-}

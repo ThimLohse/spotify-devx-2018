@@ -2,15 +2,15 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
-import LoginScreen from './screens/login';
-import RoomScreen from './screens/room';
+import LoginScreen from './screens/login/loginScreen.js';
+import RoomScreen from './screens/room/roomScreen.js';
 import {BrowserRouter as Router, Route, Redirect} from 'react-router-dom';
 
 const App = () => (
     <Router>
       <div>
-        <Route path = "/" render={()=>{ return handleRoute(<LoginScreen/>)}}/>
-        <Route path = "/RoomScreen" render={()=>handleRoute(<RoomScreen/>)}/>
+        <Route exact path = "/" render={()=>{ return handleRoute(<LoginScreen/>)}}/>
+        <Route path = "/room" render={()=>handleRoute(<RoomScreen/>)}/>
       </div>
     </Router>
 )
@@ -23,10 +23,10 @@ const handleRoute = (component) => {
       return <Redirect to='/LoginScreen'/>
     }*/
 
-    return <Redirect to='/LoginScreen'/>
+    return component;
   }
 
-ReactDOM.render(<LoginScreen />, document.getElementById('root'));
+ReactDOM.render(<App />, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

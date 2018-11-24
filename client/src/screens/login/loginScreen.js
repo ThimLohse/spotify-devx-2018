@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import style from './index.css';
-import { withRouter, Link } from 'react-router-dom'
+import SpotifyButton from '../../components/spotify-button/spotifyButton.js';
 
 export default class LoginScreen extends Component {
 
   render() {
     return (
       <div className="login-screen">
-          <div className="login-button" label="SIGN IN">
+          <SpotifyButton>
           SIGN IN
-          </div>
+          </SpotifyButton>
       </div>
     );
   }
