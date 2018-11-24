@@ -3,6 +3,7 @@
     background-color: #57B560;
     border-radius: 50px;
     width: 100%;
+    max-height: 50px;
     max-width: 350px;
     text-align: center;
     color: white;
