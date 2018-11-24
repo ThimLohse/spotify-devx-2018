@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import style from './index.css';
-import owl from '../../owl.png'
 
 class userComponent extends Component {
   constructor(props){
@@ -26,7 +25,7 @@ class userComponent extends Component {
     return (
 
       <div className="user-container" style={{top : newTop, left: newLeft}}>
-        <img className="user-image" src={owl} alt="user avatar"/>
+        <img className="user-image" src={this.props.avatar} alt="user avatar"/>
         <p>{this.props.name}</p>
       </div>
     );
