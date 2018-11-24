@@ -4,7 +4,6 @@ import config from './env-setup/config';
 import bodyParser from 'body-parser';
 import spotifyWebApi from 'spotify-web-api-node';
 import IO from 'socket.io';
-import localtunnel from 'localtunnel';
 import http from 'http';
 
 const scopes = ['user-top-read'];
@@ -13,6 +12,7 @@ const scopes = ['user-top-read'];
 // APP
 const app = express();
 const server = http.Server(app);
+const io = IO(server);
 
 // SPOTIFY API HANDLER
 const spotifyAPI = new spotifyWebApi({
@@ -29,20 +29,28 @@ const spotifyAPI = new spotifyWebApi({
 /** Setup to serve static content **/
 //app.use(express.static(path.join(__dirname, path.relative(__dirname, './../client/build'))));
 
+io.on('connection', (socket) => {
+  console.log(`socket connected: ${socket.id}`);
+
+  socket.on('disconnect', () => {
+    console.log(`${socket.id} disconnected`);
+  })
+
+  socket.on('user_id', (data) => {
+    console.log(data);
+  })
+})
 
 app.get('/login', (req, res) => {
   let authorizeURL = spotifyAPI.createAuthorizeURL(scopes, null, true);
-  console.log(authorizeURL);
   res.status(200).send({url: authorizeURL});
 })
 
 app.get('/callback', (req, res) => {
   let authCode = req.query.code;
-  console.log(authCode);
 
   spotifyAPI.authorizationCodeGrant(authCode)
   .then((data) => {
-    console.log(`Data: ${data}`);
     res.redirect(`${process.env.CLIENT_REDIRECT}/#access_token=${data.body['access_token']}&refresh_token=${data.body['refresh_token']}`)
   })
   .catch((err) => console.log('Something went wrong!! OH NOO!'));
@@ -58,14 +66,7 @@ app.get('/ping', (req, res) => {
   res.status(200).send('PONG');
 })
 
-const tunnel = localtunnel(config.app.port, { subdomain: 'audiyou'}, (err, tunnel) => {
-  console.log("Localtunnel opened to server with url: " + tunnel.url);
-});
 
-tunnel.on('close', function() {
-  //Do something when the tunnel is closed
-  console.log('tunnel is closing');
-});
 
 server.listen(config.app.port, () => {
   console.log(`App is running on port: ${config.app.port}`)
@@ -77,7 +78,6 @@ function exitHandler(options, exitCode) {
     if (options.cleanup) console.log('clean');
     if (exitCode || exitCode === 0) console.log(exitCode);
     if (options.exit) {
-      tunnel.close();
       process.exit()
     };
 }

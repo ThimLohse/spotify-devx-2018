@@ -13,7 +13,15 @@ class Room extends Component {
       access_token: props.access_token,
       refresh_token: props.refresh_token
     }
+    this.socket = null;
   }
+
+  componentDidMount(){
+    this.socket = socketClient();
+    this.socket.emit('user_id', this.state);
+
+  }
+
 
   render(){
     console.log(this.state);
