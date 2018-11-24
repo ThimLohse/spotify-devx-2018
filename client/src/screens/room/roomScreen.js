@@ -60,9 +60,29 @@ class roomScreen extends Component {
     }
 
     let data2 = await this.spotifyApi.addTracksToPlaylist(this.playlist_id, tracks_id)
+    this.addRecommandations(tracks);
+
     let data3 = await this.spotifyApi.play({context_uri: uri, offset: {position: 0}});
 
   }
+  addRecommandations(tracks) {
+    let _this = this;
+    for (let i=0; i<10; i++) {
+      var seeds = [];
+      for (let j=0; j<5; j++) {
+         seeds.push(tracks[Math.floor(Math.random()*tracks.length)].id);
+      }
+      this.spotifyApi.getRecommendations({ seed_tracks: seeds })
+      .then(
+        function(data) {
+          _this.spotifyApi.addTracksToPlaylist(_this.playlist_id, ["spotify:track:" + data.body.tracks[0].id]);
+        },
+        function(err) {
+          console.error(err);
+        }
+      );
+    }
+}
 
   async componentDidMount() {
 
