@@ -77,7 +77,7 @@ export class UserHandler {
       })
     }
     //TODO Reduce list here ??
-    returnList = this.reduceList(his.shuffle(this.filterList(returnList)));
+    returnList = this.reduceList(this.shuffle(this.filterList(returnList)));
     return returnList;
   }
   filterList(unfiltered_list) {
