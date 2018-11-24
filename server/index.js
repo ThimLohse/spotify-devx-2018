@@ -4,7 +4,6 @@ import config from './env-setup/config';
 import bodyParser from 'body-parser';
 import spotifyWebApi from 'spotify-web-api-node';
 import IO from 'socket.io';
-import localtunnel from 'localtunnel';
 import http from 'http';
 
 const scopes = ['user-top-read'];
@@ -58,14 +57,7 @@ app.get('/ping', (req, res) => {
   res.status(200).send('PONG');
 })
 
-const tunnel = localtunnel(config.app.port, { subdomain: 'audiyou'}, (err, tunnel) => {
-  console.log("Localtunnel opened to server with url: " + tunnel.url);
-});
 
-tunnel.on('close', function() {
-  //Do something when the tunnel is closed
-  console.log('tunnel is closing');
-});
 
 server.listen(config.app.port, () => {
   console.log(`App is running on port: ${config.app.port}`)
@@ -77,7 +69,6 @@ function exitHandler(options, exitCode) {
     if (options.cleanup) console.log('clean');
     if (exitCode || exitCode === 0) console.log(exitCode);
     if (options.exit) {
-      tunnel.close();
       process.exit()
     };
 }
