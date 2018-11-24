@@ -20,6 +20,7 @@ class Room extends Component {
     }
     this.socket = null;
     this.playlist_id = null;
+    this.playlist_image_url = null;
     this.dataObject = {
       user_data: {},
       top_tracks: [],
@@ -49,8 +50,36 @@ class Room extends Component {
     }
 
     let data2 = await this.spotifyApi.addTracksToPlaylist(this.playlist_id, tracks_id)
+    let data_image = await fetch('https://api.spotify.com/v1/users/{user_id}/playlists/' + this.playlist_id + '/images', {
+      method: 'get',
+      headers: {
+        "Authorization": "Bearer " + this.state.access_token
+      }
+    })
+    this.playlist_image_url = data_image.url;
+    console.log(this.playlist_image_url)
+    this.addRecommandations(tracks);
     let data3 = await this.spotifyApi.play({context_uri: uri, offset: {position: 0}});
+  }
 
+
+  addRecommandations(tracks) {
+    let _this = this;
+    for (let i=0; i<10; i++) {
+      var seeds = [];
+      for (let j=0; j<3; j++) {
+         seeds.push(tracks[Math.floor(Math.random()*tracks.length)].id);
+      }
+      this.spotifyApi.getRecommendations({ seed_tracks: seeds })
+      .then(
+        function(data) {
+          _this.spotifyApi.addTracksToPlaylist(_this.playlist_id, ["spotify:track:" + data.body.tracks[0].id]);
+        },
+        function(err) {
+          console.error(err);
+        }
+      );
+    }
   }
 
   async componentDidMount() {
