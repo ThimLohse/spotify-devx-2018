@@ -3,12 +3,14 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
 import LoginScreen from './screens/login';
+import RoomScreen from './screens/room';
 import {BrowserRouter as Router, Route, Redirect} from 'react-router-dom';
 
 const App = () => (
     <Router>
       <div>
         <Route path = "/" render={()=>{ return handleRoute(<LoginScreen/>)}}/>
+        <Route path = "/RoomScreen" render={()=>handleRoute(<RoomScreen/>)}/>
       </div>
     </Router>
 )
