@@ -27,7 +27,17 @@ export default class LoginScreen extends Component {
   render() {
     return (
       <div className="login-screen">
-          <Button onClick={() => this.redirectHandler()}>LOG IN</Button>
+        <div id="content">
+          <h1 class="title">Welcome to [Name of our Hack]</h1>
+          <p class="description">
+            _________ creates a playlist that mixes the <br/>
+            music tastes of everyone in the room.<br/>
+          </p>
+          <p class="description">
+            Less arguing, more time for music. 
+          </p>
+          <Button onClick={() => this.redirectHandler()}>LOG IN TO SPOTIFY</Button>
+        </div>
       </div>
     );
   }
