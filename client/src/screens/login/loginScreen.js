@@ -34,7 +34,7 @@ export default class LoginScreen extends Component {
             music tastes of everyone in the room.<br/>
           </p>
           <p className="description">
-            Less arguing, more time for music. 
+            Less arguing, more time for music.
           </p>
           <Button onClick={() => this.redirectHandler()}>LOG IN TO SPOTIFY</Button>
         </div>

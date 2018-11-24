@@ -31,8 +31,7 @@ export class UserHandler {
     this.trackList = {};
   }
   addUser(user) {
-    this.userList[user.id] = { ...user
-    };
+    this.userList[user.id] = { ...user};
     this.trackList[user.id] = this.randomSelector(user.top_tracks);
 
   }
@@ -44,16 +43,15 @@ export class UserHandler {
     return this.userList;
   }
   getFrontendUserList(){
-    let tempList = [...this.userList];
+    let tempList = {...this.userList};
     let tiny_list = [];
-    tempList.forEach((user) => {
+    for(let key in tempList){
       tiny_list.push(
         {
-          name: user.display_name,
-          id: user.id
-      });
-    })
-    console.log(tiny_list);
+          name: (tempList[key].user_data.display_name == null ? 'Stranger Danger' : tempList[key].user_data.display_name),
+          id: key
+        })
+    }
     return tiny_list;
 
   }
