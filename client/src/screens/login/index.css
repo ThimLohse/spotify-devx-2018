@@ -32,17 +32,19 @@ h1.title {
     background: repeating-linear-gradient(70deg, #fff,#191414 20%);
     -webkit-text-fill-color: transparent;
     -webkit-background-clip: text;
+    font-family: 'Roboto', sans-serif;
 }
 h1.titleText {
     font-size: 5vw;
     font-weight: 1900;
     color: #fff;
     letter-spacing: 0.1em;
- 
+    font-family: 'Roboto', sans-serif;
 }
 
 p.description {
     font-size: 2vw;
     color: white;
-    padding: 2vw;
+    padding: 1.5vw;
+    font-family: 'Roboto', sans-serif;
 }
