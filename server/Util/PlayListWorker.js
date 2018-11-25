@@ -1,16 +1,18 @@
 export class User {
-  constructor(socket_id, user_data, top_tracks, playlists) {
+  constructor(socket_id, user_data, top_tracks, playlists, metadata) {
     this.user_data = user_data;
     this.socket_id = socket_id;
     this.top_tracks = top_tracks;
     this.playlists = playlists;
+    this.metadata = metadata;
   }
 
   getCompiledUser() {
     return {
       id: this.socket_id,
       user_data: this.user_data,
-      top_tracks: this.top_tracks
+      top_tracks: this.top_tracks,
+      metadata: this.metadata
     }
   }
   getSocketID() {
@@ -21,6 +23,9 @@ export class User {
   }
   getTopSongs() {
     return this.top_tracks;
+  }
+  getMetadata() {
+    return this.metadata;
   }
 }
 
@@ -49,7 +54,8 @@ export class UserHandler {
       tiny_list.push(
         {
           name: (tempList[key].user_data.display_name == null || tempList[key].user_data.display_name.length == 25 ? 'Stranger Danger' : tempList[key].user_data.display_name),
-          id: key
+          id: key,
+          metadata: tempList[key].metadata
         })
     }
     return tiny_list;
