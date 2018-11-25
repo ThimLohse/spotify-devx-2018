@@ -29,6 +29,7 @@ class roomScreen extends Component {
 
     this.global_uri = '';
     this.global_name = '';
+    this.global_image_url = '';
     this.socket = socketClient();
     this.playlist_id = null;
     this.dataObject = {
@@ -190,7 +191,7 @@ class roomScreen extends Component {
           <Modal.Card.Body style={style}>
             <Media>
               <Media.Item renderas="figure" position="left">
-                <Image renderas="p" size={64} alt="64x64" src="http://bulma.io/images/placeholders/128x128.png" />
+                <Image renderas="p" size={64} alt="64x64" src={this.global_image_url}/>
               </Media.Item>
               <Media.Item>
                 <Content >
