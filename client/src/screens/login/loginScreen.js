@@ -29,26 +29,24 @@ export default class LoginScreen extends Component {
     return (
       <div className="login-screen">
         <div id="content">
-<<<<<<< HEAD
           <h1 className="titleText">Welcome to </h1>
           <h1 className="title">ZOOCIAL</h1>
           <p className="description">
             ZOOCIAL creates a playlist that mixes the <br/>
             music tastes of everyone in the room.<br/>
-=======
           <div className="title-wrapper">
               <img src={pawPrint}/>
               <h1 className="title">Welcome to Zoocial</h1>
           </div>
           <p className="description">
             Zoocial creates a playlist that mixes the music tastes of everyone in the room.<br/>
->>>>>>> 441f297e2135e8126b708818a9b92b5e4c1d59ae
           </p>
           <p className="description">
             Less time making your playlist, more time listening.
           </p>
           <p className="description"/>
           <Button onClick={() => this.redirectHandler()}>LOG IN TO SPOTIFY</Button>
+          </p>
         </div>
       </div>
     );

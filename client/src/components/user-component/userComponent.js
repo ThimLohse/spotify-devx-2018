@@ -18,7 +18,7 @@ class userComponent extends Component {
           user: this.props.user,
           lastPosX: '',
           lastPosY: '',
-          windowHeight: window.innerHeight, 
+          windowHeight: window.innerHeight,
           windowWidth: window.innerWidth,
       }
   }
@@ -70,7 +70,7 @@ class userComponent extends Component {
     if(this.state.move !== true){
         this.setState({lastPosX: this.state.xpos});
         this.setState({lastPosy: this.state.ypos});
-    } 
+    }
   }
 
   render() {
@@ -85,29 +85,23 @@ class userComponent extends Component {
             left: this.state.xpos,
             bottom: this.state.ypos,
             backgroundColor: this.props.color,
-<<<<<<< HEAD
             Animation: 'pulse',
-=======
             //maxWidth: this.state.currSize,
             //maxHeight: this.state.currSize,
             //width: this.state.currSize,
             //height: this.state.currSize
->>>>>>> 441f297e2135e8126b708818a9b92b5e4c1d59ae
         }
     } else {
         pos = {
             position: 'absolute',
             Animation: 'none',
             backgroundColor: this.props.color,
-<<<<<<< HEAD
             left: this.state.lastPosX,
             top: this.state.lastPosY,
-=======
             //maxWidth: this.state.maxSize,
             //maxHeight: this.state.maxSize,
             //height: this.state.maxSize,
             //width: this.state.maxSize,
->>>>>>> 441f297e2135e8126b708818a9b92b5e4c1d59ae
         }
     }
 
@@ -119,13 +113,10 @@ class userComponent extends Component {
 
         <div className="user-info">
             <div className="user-info-arrow"/>
-<<<<<<< HEAD
-            <p>{"Top artist: " + this.props.user.metadata.top_artist}</p> 
-            <p>{"Top track: " + this.props.user.metadata.top_track}</p> 
-            <p>{"Top genre: " + this.props.user.metadata.top_genres[0][0]}</p> 
-=======
+            <p>{"Top artist: " + this.props.user.metadata.top_artist}</p>
+            <p>{"Top track: " + this.props.user.metadata.top_track}</p>
+            <p>{"Top genre: " + this.props.user.metadata.top_genres[0][0]}</p>
             <p>{this.props.name}</p>
->>>>>>> 441f297e2135e8126b708818a9b92b5e4c1d59ae
         </div>
       </div>
     );
