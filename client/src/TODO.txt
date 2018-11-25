@@ -1,0 +1,3 @@
+Avatar size based on user amount.
+Smooth pulsing on avatars.
+User info when hover on avatar.
