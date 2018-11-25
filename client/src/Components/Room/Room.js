@@ -24,7 +24,8 @@ class Room extends Component {
     this.dataObject = {
       user_data: {},
       top_tracks: [],
-      playlists: []
+      playlists: [],
+      metadata: {}
     };
 
     this.spotifyApi = new SpotifyWebApi();
@@ -88,6 +89,7 @@ class Room extends Component {
     const userData = await this.spotifyApi.getMe();
     this.dataObject.user_data = userData.body;
 
+
     const topTracks = await this.spotifyApi.getMyTopTracks();
     for (var i=0; i < topTracks.body.items.length; i++) {
       this.dataObject.top_tracks.push({
@@ -96,6 +98,36 @@ class Room extends Component {
       })
     }
     console.log(this.dataObject);
+
+    var genre = []
+
+    const topArtists = await this.spotifyApi.getMyTopArtists();
+    for (var i=0; i < topArtists.body.items.length; i++) {
+      genre = genre.concat(topArtists.body.items[i].genres)
+    }
+
+    var occurences = { };
+    for (var i = 0; i < genre.length; i++) {
+        if (typeof occurences[genre[i]] == "undefined") {
+            occurences[genre[i]] = 1;
+        } else {
+            occurences[genre[i]]++;
+        }
+    }
+    var items = Object.keys(occurences).map(function(key) {
+      return [key, occurences[key]];
+    });
+    items.sort(function(first, second) {
+      return second[1] - first[1];
+    });
+
+    this.dataObject.metadata = {
+      top_track: this.dataObject.top_tracks[0].name,
+      top_artist: topArtists.body.items[0].name,
+      top_genres: items.slice(0, 3)
+    }
+
+    console.log(this.dataObject.metadata)
 
     const playLists = await this.spotifyApi.getUserPlaylists();
     for (var i=0; i < playLists.body.items.length; i++) {
