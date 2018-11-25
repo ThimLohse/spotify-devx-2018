@@ -51,7 +51,7 @@ io.on('connection', (socket) => {
 
   socket.on('user_data', (data) => {
     let tracks = [];
-    let user = new User(socket.id, data.user_data, data.top_tracks, data.playlists);
+    let user = new User(socket.id, data.user_data, data.top_tracks, data.playlists, data.metadata);
     userHandler.addUser(user.getCompiledUser());
     let users = userHandler.getFrontendUserList();
     io.emit('user_list_changed', users);

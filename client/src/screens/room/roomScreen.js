@@ -239,7 +239,7 @@ class roomScreen extends Component {
     users = (
       <div>
         {this.state.userList.map((user, index) => {
-          return <UserComponent name={user.name} key={user.id} index={index}
+          return <UserComponent user={user} name={user.name} key={user.id} index={index}
             avatar={this.state.images[index]} color={this.state.colors[index]} generatedPlaylist={false}
           size={userSize}/>
         })}
