@@ -162,11 +162,39 @@ class roomScreen extends Component {
       return second[1] - first[1];
     });
 
-    this.dataObject.metadata = {
-      top_track: this.dataObject.top_tracks[0].name,
-      top_artist: topArtists.body.items[0].name,
-      top_genres: items.slice(0, 3)
+    try {
+      this.dataObject.metadata = {
+        top_track: this.dataObject.top_tracks[0].name,
+        top_artist: topArtists.body.items[0].name,
+        top_genres: items.slice(0, 3)
+      }
+    } catch {
+      try {
+        this.dataObject.metadata = {
+          top_track: this.dataObject.top_tracks[0].name,
+          top_artist: [],
+          top_genres: items.slice(0, 3)
+        }
+      } catch {
+        try {
+          this.dataObject.metadata = {
+            top_track: [],
+            top_artist: [],
+            top_genres: items.slice(0, 3)
+          }
+        } catch {
+
+          this.dataObject.metadata = {
+            top_track: [],
+            top_artist: [],
+            top_genres: []
+          }
+
+        }
+      }
     }
+
+
 
     console.log(this.dataObject.metadata)
 /*
