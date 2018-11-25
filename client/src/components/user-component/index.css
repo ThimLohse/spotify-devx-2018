@@ -7,12 +7,21 @@
     position: absolute;
     box-shadow: 0 5px 15px 0px rgba(0,0,0,0.6);
     z-index: 0;
+    transform-origin: 50% 50%;
+    animation: pulse 5s infinite;
+}
+
+.user-container:hover{
+    height: scale(1);
+    width: scale(1);
+    animation: none;
 }
 
 .user-container h2{
     color: white;
     margin-top: 0%;
-    font-size: 1em;  
+    font-size: 1em; 
+    text-align: center; 
 }
 
 .user-info{
@@ -71,3 +80,26 @@
     height: 70%;
     margin: 15%;
 }
+
+@-webkit-keyframes pulse {
+    0% {
+        transform: scale(0.5);
+    }
+    50% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(0.5);
+    }
+  }
+  @keyframes pulse {
+    0% {
+        transform: scale(0.5);
+    }
+    50% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(0.5);
+    }
+  }
