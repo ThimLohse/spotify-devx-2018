@@ -311,7 +311,7 @@ class roomScreen extends Component {
         </Modal>
             {users}
             <SpotifyButton onClick={() => this.generatePlayList()}>
-            MASH PLAYLIST
+            MASH MUSIC
             </SpotifyButton>
         </div>
     );

@@ -126,10 +126,10 @@ class userComponent extends Component {
 
         <div className="user-info">
             <div className="user-info-arrow"/>
-            <p>{"I am from: " + this.props.user.flag}</p>
-            <p>{"Top artist: " + top_artist}</p>
-            <p>{"Top track: " + top_track}</p>
-            <p>{"Top genre: " + top_genre[0][0]}</p>
+            <p><b>{"I am from: "}</b> {this.props.user.flag}</p>
+            <p><b>{"Top artist: "}</b> {top_artist}</p>
+            <p><b>{"Top track: "}</b> {top_track}</p>
+            <p><b>{"Top genre: "}</b> {top_genre[0][0]}</p>
         </div>
       </div>
     );
