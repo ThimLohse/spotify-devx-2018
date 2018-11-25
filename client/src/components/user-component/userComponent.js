@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import style from './index.css';
-import { flag } from 'country-code-emoji';
 
 class userComponent extends Component {
   constructor(props) {
