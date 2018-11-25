@@ -6,7 +6,6 @@ import spotifyWebApi from 'spotify-web-api-node';
 import IO from 'socket.io';
 import http from 'http';
 import prettyJson from 'prettyjson';
-import Api from './Router/Api';
 
 // UTIL CLASSES
 import {User, UserHandler} from './Util/PlayListWorker';

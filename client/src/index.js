@@ -19,7 +19,7 @@ const App = () => (
 
 /*
 const handleRoute = (component) => {
-  
+
   if(sessionStorage.isLoggedIn==='true'){
     return component
   } else {
