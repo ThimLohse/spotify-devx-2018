@@ -10,6 +10,20 @@
     background-color: black;
 }
 
+img {
+    width: 10%;
+    height: auto;
+    margin: 2%;
+}
+
+.title-wrapper {
+    display: flex;
+    grid-template-columns: 1fr, 1fr;
+    align-items: center;
+    justify-content: center;
+    flex:1;
+}
+
 h1.title {
     font-size: 5vw;
     font-weight: 1900;

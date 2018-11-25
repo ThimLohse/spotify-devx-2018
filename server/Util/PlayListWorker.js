@@ -1,3 +1,5 @@
+import { flag } from 'country-code-emoji';
+
 export class User {
   constructor(socket_id, user_data, top_tracks, playlists, metadata) {
     this.user_data = user_data;
@@ -55,7 +57,8 @@ export class UserHandler {
         {
           name: (tempList[key].user_data.display_name == null || tempList[key].user_data.display_name.length == 25 ? 'Stranger Danger' : tempList[key].user_data.display_name),
           id: key,
-          metadata: tempList[key].metadata
+          metadata: tempList[key].metadata,
+          flag: flag(tempList[key].user_data.country)
         })
     }
     return tiny_list;

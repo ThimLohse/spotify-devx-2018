@@ -1262,6 +1262,11 @@ core-util-is@1.0.2, core-util-is@~1.0.0:
   resolved "https://registry.yarnpkg.com/core-util-is/-/core-util-is-1.0.2.tgz#b5fd54220aa2bc5ab57aab7140c940754503c1a7"
   integrity sha1-tf1UIgqivFq1eqtxQMlAdUUDwac=
 
+country-code-emoji@^0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/country-code-emoji/-/country-code-emoji-0.0.1.tgz#de9bc8cfae25aa56c44bae1e18123cbdffba66bb"
+  integrity sha1-3pvIz64lqlbES64eGBI8vf+6Zrs=
+
 create-error-class@^3.0.0:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/create-error-class/-/create-error-class-3.0.2.tgz#06be7abef947a3f14a30fd610671d401bca8b7b6"

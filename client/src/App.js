@@ -18,6 +18,8 @@ class App extends Component {
     }
   }
   componentDidMount() {
+
+
     //Call the backend API
     const parsed = queryString.parse(window.location.hash);
     if(parsed.access_token != null){
@@ -37,7 +39,6 @@ class App extends Component {
   render() {
 
 
-
     let view = null;
     view = this.state.isLoggedIn ? <Room access_token={this.state.access_token} refresh_token={this.state.refresh_token}/> : <Login/>;
 
@@ -51,5 +52,7 @@ class App extends Component {
     );
   }
 }
+
+
 
 export default App;
