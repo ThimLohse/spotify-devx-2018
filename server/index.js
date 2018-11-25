@@ -33,7 +33,7 @@ const spotifyAPI = new spotifyWebApi({
 
 
 /** Setup to serve static content **/
-app.use(express.static(path.join(__dirname, path.relative(__dirname, './../client/build'))));
+//app.use(express.static(path.join(__dirname, path.relative(__dirname, './../client/build'))));
 
 
 

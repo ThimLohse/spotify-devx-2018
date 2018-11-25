@@ -54,7 +54,7 @@ class roomScreen extends Component {
 
   generatePlayList(){
     this.socket.emit('generate_playlist');
-    this.setState({ generatedPlaylist: true })  
+    this.setState({ generatedPlaylist: true })
   }
 
   async createPlaylist(tracks){
@@ -225,7 +225,7 @@ class roomScreen extends Component {
 
   render() {
     let userSize = window.innerHeight/Math.ceil(this.state.userList.length/10)*.1;
-    
+
     const saveLink = this.state.copy;
     let shareContext;
 
@@ -234,7 +234,7 @@ class roomScreen extends Component {
     } else {
       shareContext = <p>{this.state.shareContent}</p>;
     }
-    
+
     let users = null;
     users = (
       <div>
@@ -245,7 +245,7 @@ class roomScreen extends Component {
         })}
       </div>
     );
-    
+
     const style = {
       'backgroundColor': '#f2e6ff'
     }
@@ -265,7 +265,6 @@ class roomScreen extends Component {
                 <Content >
                   <p>
                     <strong>{this.global_name}</strong>
-
                   </p>
                   <ul>{this.global_top5}</ul>
                 </Content>
