@@ -219,12 +219,13 @@ class roomScreen extends Component {
     } else {
       shareContext = <p>{this.state.shareContent}</p>;
     }
+    
     let users = null;
     users = (
       <div>
         {this.state.userList.map((user, index) => {
           return <UserComponent name={user.name} key={user.id} index={index}
-            avatar={this.state.images[index]} color={this.state.colors[index]} generatedPlaylist={this.state.generatedPlaylist}
+            avatar={this.state.images[index]} color={this.state.colors[index]} generatedPlaylist={false}
           size={userSize}/>
         })}
       </div>

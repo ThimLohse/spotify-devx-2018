@@ -28,9 +28,10 @@ export default class LoginScreen extends Component {
     return (
       <div className="login-screen">
         <div id="content">
-          <h1 className="title">Welcome to [Name of our Hack]</h1>
+          <h1 className="titleText">Welcome to </h1>
+          <h1 className="title">ZOOCIAL</h1>
           <p className="description">
-            _________ creates a playlist that mixes the <br/>
+            ZOOCIAL creates a playlist that mixes the <br/>
             music tastes of everyone in the room.<br/>
           </p>
           <p className="description">

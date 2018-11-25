@@ -14,6 +14,7 @@ class userComponent extends Component {
           dy: Math.random(),
           xpos: Math.floor(this.getRandomInt(window.innerWidth)/2 + window.innerWidth/5),
           ypos: Math.floor(this.getRandomInt(window.innerHeight)/2 + window.innerHeight/5),
+          move: true,
       }
   }
 
@@ -35,7 +36,6 @@ class userComponent extends Component {
   }
 
   updatePosition() {
-      console.log(this.props.generatedPlaylist);
       var dx = this.state.dx;
       var dy = this.state.dy;
 
@@ -68,14 +68,22 @@ class userComponent extends Component {
   */
 
   render() {
-    var pos = {};
+    var pos = {
+        position: 'absolute',
+        Animation: 'pulse',
+    };
 
-    if(this.props.generatedPlaylist!==true){
+    const fixedPos = {
+      
+    }
+
+    if(this.state.move){
         pos = {
             position: 'absolute',
             left: this.state.xpos,
             bottom: this.state.ypos,
-            backgroundColor: this.props.color, 
+            backgroundColor: this.props.color,
+            Animation: 'pulse',
             //maxWidth: this.state.currSize,
             //maxHeight: this.state.currSize,
             //width: this.state.currSize,
@@ -83,19 +91,14 @@ class userComponent extends Component {
         }
     } else {
         pos = {
-            position: 'absolute',
-            left: window.innerWidth-window.innerHeight*0.2 + window.innerHeight*0.05*Math.pow(-1,this.props.index),
-            bottom: window.innerHeight-window.innerHeight*0.1*(this.props.index+2),
+            Animation: 'none',
             backgroundColor: this.props.color,
-            //maxWidth: this.state.maxSize,
-            //maxHeight: this.state.maxSize, 
-            //height: this.state.maxSize,
-            //width: this.state.maxSize,
         }
+        console.log(this.props);
     }
 
     return (
-      <div className="user-container" style={pos}>
+      <div className="user-container" style={pos} onClick={() => this.setState({move:!this.state.move})}>
         <img className="user-image" src={this.props.avatar} alt="user avatar"/>
         <h2>{this.props.name}</h2>
         

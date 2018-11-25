@@ -1,3 +1,4 @@
-Avatar size based on user amount.
-Smooth pulsing on avatars.
-User info when hover on avatar.
+Avatar size based on user amount. (DONE)
+Smooth pulsing on avatars. (DONE)
+User info when hover on avatar. (50%)
+Login screen styling and title

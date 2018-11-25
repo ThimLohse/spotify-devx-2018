@@ -13,7 +13,18 @@
 h1.title {
     font-size: 5vw;
     font-weight: 1900;
-    color: white;
+    color: transparent;
+    letter-spacing: 0.1em;
+    background: repeating-linear-gradient(70deg, #fff,#191414 20%);
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+}
+h1.titleText {
+    font-size: 5vw;
+    font-weight: 1900;
+    color: #fff;
+    letter-spacing: 0.1em;
+ 
 }
 
 p.description {
