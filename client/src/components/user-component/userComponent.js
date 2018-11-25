@@ -4,12 +4,12 @@ import style from './index.css';
 class userComponent extends Component {
   constructor(props) {
       super(props);
-      
+      this.userComponentId = null;
       this.state = {
           dx: Math.random(),
           dy: Math.random(),
-          xpos: this.getRandomInt(window.innerWidth),
-          ypos: this.getRandomInt(window.innerHeight),
+          xpos: Math.floor(this.getRandomInt(window.innerWidth)/2 + window.innerWidth/5),
+          ypos: Math.floor(this.getRandomInt(window.innerHeight)/2 + window.innerHeight/5),
       }
   }
 
@@ -27,14 +27,18 @@ class userComponent extends Component {
         10
       );
   }
+  componentWillUnmount(){
+    clearInterval(this.userComponentId);
+    this.userComponentId = null;
+  }
 
   updatePosition() {
       var dx = this.state.dx;
       var dy = this.state.dy;
-      if (this.state.xpos >= window.innerWidth-30 || this.state.xpos < 0) {
+      if (this.state.xpos >= window.innerWidth-70 || this.state.xpos < 0) {
           dx = - dx;
       }
-      if (this.state.ypos >= window.innerHeight-30 || this.state.ypos < 0) {
+      if (this.state.ypos >= window.innerHeight-70 || this.state.ypos < 0) {
           dy = - dy;
       }
       this.setState({
@@ -50,9 +54,9 @@ class userComponent extends Component {
         position: 'absolute',
         left: this.state.xpos,
         bottom: this.state.ypos,
-        backgroundColor: this.props.color, 
+        backgroundColor: this.props.color,
     }
-    
+
     return (
       <div className="user-container" style={pos}>
       <img className="user-image" src={this.props.avatar} alt="user avatar"/>
