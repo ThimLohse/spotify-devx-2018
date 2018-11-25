@@ -6,6 +6,13 @@ import LoginScreen from './screens/login/loginScreen.js';
 import RoomScreen from './screens/room/roomScreen.js';
 import {BrowserRouter as Router, Route, Redirect} from 'react-router-dom';
 import App from './App.js';
+import WebFont from 'webfontloader';
+
+WebFont.load({
+    google: {
+        families: ['Roboto', 'sans-serif']
+    }
+})
 
 /*
 const App = () => (
