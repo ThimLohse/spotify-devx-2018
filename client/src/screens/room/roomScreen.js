@@ -14,8 +14,10 @@ const svgs = paths.map( path => reqSvgs ( path ) )
 
 class roomScreen extends Component {
 
+
   constructor(props){
     super(props)
+
     this.state = {
       access_token: props.access_token,
       refresh_token: props.refresh_token,
@@ -29,6 +31,7 @@ class roomScreen extends Component {
       generatedPlaylist: false,
     }
 
+    this.global_top5 = [];
     this.global_uri = '';
     this.global_name = '';
     this.global_image_url = '';
@@ -55,6 +58,10 @@ class roomScreen extends Component {
   }
 
   async createPlaylist(tracks){
+    this.global_top5 = [];
+    this.state["shareContent"] = 'Get a link to share ❤️';
+    this.state["copy"] = false;
+
     let name = generateName();
     this.global_name = name;
     let id = this.dataObject.user_data.id;
@@ -67,7 +74,11 @@ class roomScreen extends Component {
     let tracks_id = []
     for (let i = 0; i < tracks.length; i++){
       tracks_id.push("spotify:track:" + tracks[i].id);
+      if (i < 5) {
+        this.global_top5.push(<li>{tracks[i].name}</li>)
+      }
     }
+    this.global_top5.push(<li>{"..."}</li>)
 
     let data2 = await this.spotifyApi.addTracksToPlaylist(this.playlist_id, tracks_id)
     let data_image = await fetch('https://api.spotify.com/v1/users/{user_id}/playlists/' + this.playlist_id + '/images', {
@@ -79,7 +90,11 @@ class roomScreen extends Component {
 
 
     data_image.json().then((data) => {
-      this.global_image_url = data[0].url;
+      try {
+        this.global_image_url = data[0].url;
+      } catch {
+        console.log("image_error")
+      }
       this.open();
     })
 
@@ -215,7 +230,7 @@ class roomScreen extends Component {
     let shareContext;
 
     if (!saveLink) {
-      shareContext = <Button style={{backgroundColor: '#e0e0eb'}}onClick={() => this.playListLinkHandler()}>{this.state.shareContent}</Button>;
+      shareContext = <Button style={{backgroundColor: '#e0e0eb'}} onClick={() => this.playListLinkHandler()}>{this.state.shareContent}</Button>;
     } else {
       shareContext = <p>{this.state.shareContent}</p>;
     }
@@ -243,26 +258,26 @@ class roomScreen extends Component {
           <Modal.Card.Body style={style}>
             <Media>
               <Media.Item renderas="figure" position="left">
-                <Image renderas="p" size={64} alt="64x64" src={this.global_image_url}/>
+                <Image renderas="p" size={128} alt="128x128" src={this.global_image_url}/>
               </Media.Item>
               <Media.Item>
                 <Content >
                   <p>
                     <strong>{this.global_name}</strong>
-                    <br />
-                    A list of songs here maybe?
+
                   </p>
+                  <ul>{this.global_top5}</ul>
                 </Content>
-                <Level breakpoint="mobile">
-                  <Level.Side align="left">
-                  {shareContext}
-                  </Level.Side>
-                </Level>
+
               </Media.Item>
             </Media>
+            <br />
+            <Level breakpoint="mobile" style={{ alignItems: 'center', justifyContent: 'center'}}>
+              {shareContext}
+            </Level>
           </Modal.Card.Body>
           <Modal.Card.Foot style={{ alignItems: 'center', justifyContent: 'center', backgroundColor: '#f2e6ff' }}>
-            <p>Additonal Info</p>
+            <p>Head over to your Spotify app to see your new playlist!</p>
           </Modal.Card.Foot>
         </Modal.Card>
         </Modal>
