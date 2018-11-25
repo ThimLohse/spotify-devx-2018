@@ -104,7 +104,20 @@ class userComponent extends Component {
             //width: this.state.maxSize,
         }
     }
+    let top_artist = "No top artist to show."
+    let top_track = "Oh no! user needs to listen more.";
+    let top_genre = "No favorites. WHAT?!";
 
+    if(this.props.user.metadata.top_artist.length !== 0){
+      top_artist = this.props.user.metadata.top_artist;
+    }
+
+    if(this.props.user.metadata.top_track.length !== 0){
+      top_track = this.props.user.metadata.top_track;
+    }
+    if(this.props.user.metadata.top_genres.length !== 0){
+      top_genre = this.props.user.metadata.top_genres;
+    }
     return (
       //<div className="user-container" style={pos} onClick={() => this.setState({move:!this.state.move})}>
       <div className="user-container" style={pos} >
@@ -114,9 +127,9 @@ class userComponent extends Component {
         <div className="user-info">
             <div className="user-info-arrow"/>
             <p>{"I am from: " + this.props.user.flag}</p>
-            <p>{"Top artist: " + this.props.user.metadata.top_artist}</p>
-            <p>{"Top track: " + this.props.user.metadata.top_track}</p>
-            <p>{"Top genre: " + this.props.user.metadata.top_genres[0][0]}</p>
+            <p>{"Top artist: " + top_artist}</p>
+            <p>{"Top track: " + top_track}</p>
+            <p>{"Top genre: " + top_genre[0][0]}</p>
         </div>
       </div>
     );
