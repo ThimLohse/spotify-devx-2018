@@ -25,7 +25,7 @@ class roomScreen extends Component {
       images: svgs,
       showModal: false,
       shareContent: 'Get a link to share ❤️',
-      copy: false
+      copy: false,
       generatedPlaylist: false,
     }
 
@@ -210,14 +210,6 @@ class roomScreen extends Component {
 
   render() {
     let userSize = window.innerHeight/Math.ceil(this.state.userList.length/10)*.1;
-    return (
-        <div className="room-screen">
-
-            {this.state.userList.map((user, index) => {
-              return <UserComponent name={user.name} key={user.id} index={index}
-                avatar={this.state.images[index]} color={this.state.colors[index]} generatedPlaylist={this.state.generatedPlaylist}
-              size={userSize}/>
-            })}
     
     const saveLink = this.state.copy;
     let shareContext;
@@ -230,12 +222,14 @@ class roomScreen extends Component {
     let users = null;
     users = (
       <div>
-      {this.state.userList.map((user, index) => {
-        return <UserComponent name={user.name} key={user.id} index={index}
-        avatar={this.state.images[index]} color={this.state.colors[index]}/>
-      })}
+        {this.state.userList.map((user, index) => {
+          return <UserComponent name={user.name} key={user.id} index={index}
+            avatar={this.state.images[index]} color={this.state.colors[index]} generatedPlaylist={this.state.generatedPlaylist}
+          size={userSize}/>
+        })}
       </div>
     );
+    
     const style = {
       'backgroundColor': '#f2e6ff'
     }
