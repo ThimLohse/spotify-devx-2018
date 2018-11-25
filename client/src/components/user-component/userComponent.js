@@ -6,8 +6,10 @@ class userComponent extends Component {
       super(props);
       
       this.state = {
-          currentSizeIndex: 0,
-          sizes: [window.innerHeight*.1, window.innerHeight*.08],
+          currSize: this.props.size,
+          dsize: this.props.size*.01,
+          maxSize: this.props.size,
+          minSize: this.props.size*.5,
           dx: Math.random(),
           dy: Math.random(),
           xpos: this.getRandomInt(window.innerWidth),
@@ -25,7 +27,7 @@ class userComponent extends Component {
 
   componentDidMount() {
       setInterval( () => this.updatePosition(), 10);
-      setInterval( () => this.updateSize(), 500);
+      setInterval( () => this.updateSize(), 20);
   }
 
   updatePosition() {
@@ -47,8 +49,13 @@ class userComponent extends Component {
   }
 
   updateSize() {
+      var dsize = this.state.dsize;
+      if (this.state.currSize > this.state.maxSize || this.state.currSize < this.state.minSize) {
+          dsize = -dsize;
+      }
       this.setState({
-          currentSizeIndex: (this.state.currentSizeIndex + 1)%2,
+          dsize: dsize,
+          currSize: this.state.currSize + dsize,
       })
   }
 
@@ -61,8 +68,8 @@ class userComponent extends Component {
             left: this.state.xpos,
             bottom: this.state.ypos,
             backgroundColor: this.props.color, 
-            width: this.state.sizes[this.state.currentSizeIndex],
-            height: this.state.sizes[this.state.currentSizeIndex],
+            width: this.state.currSize,
+            height: this.state.currSize
         }
     } else {
         pos = {
@@ -70,8 +77,8 @@ class userComponent extends Component {
             left: window.innerWidth-window.innerHeight*0.2 + window.innerHeight*0.05*Math.pow(-1,this.props.index),
             bottom: window.innerHeight-window.innerHeight*0.1*(this.props.index+2),
             backgroundColor: this.props.color, 
-            height: window.innerHeight*0.1,
-            width: window.innerHeight*0.1,
+            height: this.state.maxSize,
+            width: this.state.maxSize,
         }
     }
 
