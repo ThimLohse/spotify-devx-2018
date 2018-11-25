@@ -35,7 +35,8 @@ class roomScreen extends Component {
     this.dataObject = {
       user_data: {},
       top_tracks: [],
-      playlists: []
+      playlists: [],
+      metadata: {}
     };
 
     this.spotifyApi = new SpotifyWebApi();
@@ -66,23 +67,39 @@ class roomScreen extends Component {
     }
 
     let data2 = await this.spotifyApi.addTracksToPlaylist(this.playlist_id, tracks_id)
+    let data_image = await fetch('https://api.spotify.com/v1/users/{user_id}/playlists/' + this.playlist_id + '/images', {
+      method: 'get',
+      headers: {
+        "Authorization": "Bearer " + this.state.access_token
+      }
+    })
+
+
+    data_image.json().then((data) => {
+      this.global_image_url = data[0].url;
+      this.open();
+    })
+
     this.addRecommandations(tracks);
-    this.open();
 
     let data3 = await this.spotifyApi.play({context_uri: uri, offset: {position: 0}});
 
   }
   addRecommandations(tracks) {
     let _this = this;
+    var tracks_recommended = [];
     for (let i = 0; i < 10; i++) {
       var seeds = [];
       for (let j = 0; j < 5; j++) {
          seeds.push(tracks[Math.floor(Math.random()*tracks.length)].id);
       }
-      this.spotifyApi.getRecommendations({ seed_tracks: seeds })
+      this.spotifyApi.getRecommendations({ seed_tracks: seeds, limit:1, country: "SE" })
       .then(
         function(data) {
-          _this.spotifyApi.addTracksToPlaylist(_this.playlist_id, ["spotify:track:" + data.body.tracks[0].id]);
+          tracks_recommended.push("spotify:track:" + data.body.tracks[0].id)
+          if (tracks_recommended.length == 10) {
+            _this.spotifyApi.addTracksToPlaylist(_this.playlist_id, tracks_recommended);
+          }
         },
         function(err) {
           console.error(err);
@@ -104,6 +121,36 @@ class roomScreen extends Component {
       })
     }
     console.log(this.dataObject);
+
+    var genre = []
+
+    const topArtists = await this.spotifyApi.getMyTopArtists();
+    for (var i=0; i < topArtists.body.items.length; i++) {
+      genre = genre.concat(topArtists.body.items[i].genres)
+    }
+
+    var occurences = { };
+    for (var i = 0; i < genre.length; i++) {
+        if (typeof occurences[genre[i]] == "undefined") {
+            occurences[genre[i]] = 1;
+        } else {
+            occurences[genre[i]]++;
+        }
+    }
+    var items = Object.keys(occurences).map(function(key) {
+      return [key, occurences[key]];
+    });
+    items.sort(function(first, second) {
+      return second[1] - first[1];
+    });
+
+    this.dataObject.metadata = {
+      top_track: this.dataObject.top_tracks[0].name,
+      top_artist: topArtists.body.items[0].name,
+      top_genres: items.slice(0, 3)
+    }
+
+    console.log(this.dataObject.metadata)
 /*
     const playLists = await this.spotifyApi.getUserPlaylists();
     for (let i=0; i < playLists.body.items.length; i++) {
