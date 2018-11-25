@@ -48,7 +48,7 @@ export class UserHandler {
     for(let key in tempList){
       tiny_list.push(
         {
-          name: (tempList[key].user_data.display_name == null ? 'Stranger Danger' : tempList[key].user_data.display_name),
+          name: (tempList[key].user_data.display_name == null || tempList[key].user_data.display_name.length == 25 ? 'Stranger Danger' : tempList[key].user_data.display_name),
           id: key
         })
     }
