@@ -1,21 +1,16 @@
 import React, {Component} from 'react';
 import queryString from 'query-string';
-import Button from '../../components/spotifyButton/spotifyButton';
+import SpotifyButton from '../../components/spotifyButton/spotifyButton';
 import UserComponent from '../../components/user-component/userComponent';
 import socketClient from 'socket.io-client';
 import SpotifyWebApi from 'spotify-web-api-node';
 import generateName from 'sillyname';
 import style from './index.css';
-import img0 from '../../assets/albatross.svg';
-import img1 from '../../assets/anteater.svg';
-import img2 from '../../assets/baboon.svg';
-import img3 from '../../assets/tuna.svg';
-import img4 from '../../assets/turtle.svg';
-import img5 from '../../assets/wasp.svg';
-import img6 from '../../assets/wolf.svg';
-import img7 from '../../assets/zander.svg';
-import img8 from '../../assets/owl.svg';
-import img9 from '../../assets/bear.svg';
+import { Modal, Content, Image, Media, Level, Button } from 'react-bulma-components/full';
+const reqSvgs = require.context( './../../assets', true, /\.svg$/ )
+const paths = reqSvgs.keys()
+const svgs = paths.map( path => reqSvgs ( path ) )
+
 
 class roomScreen extends Component {
 
@@ -26,9 +21,14 @@ class roomScreen extends Component {
       refresh_token: props.refresh_token,
       userList: [],
       colors: ['#509BF5', '#57B560','#57B560','#F474A0', '#1D3264', '#FF4632','#F49B23'],
-      images: [img1, img2, img3,img4,img5,img6,img7,img8,img9,img0,],
+      images: svgs,
+      showModal: false,
+      shareContent: 'Get a link to share ❤️',
+      copy: false
     }
 
+    this.global_uri = '';
+    this.global_name = '';
     this.socket = socketClient();
     this.playlist_id = null;
     this.dataObject = {
@@ -41,6 +41,9 @@ class roomScreen extends Component {
     this.spotifyApi.setAccessToken(this.state.access_token);
   }
 
+  // MODAL FUNCTIONS
+  open = () => this.setState({ showModal: true });
+  close = () => this.setState({ showModal: false });
 
   generatePlayList(){
     this.socket.emit('generate_playlist');
@@ -48,11 +51,13 @@ class roomScreen extends Component {
 
   async createPlaylist(tracks){
     let name = generateName();
+    this.global_name = name;
     let id = this.dataObject.user_data.id;
     let data = await this.spotifyApi.createPlaylist(id, name, { 'public' : false })
 
     this.playlist_id = data.body.id;
     let uri = data.body.uri;
+    this.global_uri = uri;
 
     let tracks_id = []
     for (let i = 0; i < tracks.length; i++){
@@ -61,6 +66,7 @@ class roomScreen extends Component {
 
     let data2 = await this.spotifyApi.addTracksToPlaylist(this.playlist_id, tracks_id)
     this.addRecommandations(tracks);
+    this.open();
 
     let data3 = await this.spotifyApi.play({context_uri: uri, offset: {position: 0}});
 
@@ -138,10 +144,30 @@ class roomScreen extends Component {
     return Math.floor(Math.random() * (max - min)) + min; //The maximum is exclusive and the minimum is inclusive
   }
 
+  playListLinkHandler = () => {
+    if(this.state.copy === false){
+      let shareLink = this.global_uri;
+      this.setState({shareContent: shareLink, copy: true});
+    }
+    else{
+
+    }
+
+  }
+
+
   //this.getRandomInt(0,this.state.images.length)
 
   render() {
 
+    const saveLink = this.state.copy;
+    let shareContext;
+
+    if (!saveLink) {
+      shareContext = <Button style={{backgroundColor: '#e0e0eb'}}onClick={() => this.playListLinkHandler()}>{this.state.shareContent}</Button>;
+    } else {
+      shareContext = <p>{this.state.shareContent}</p>;
+    }
     let users = null;
     users = (
       <div>
@@ -151,12 +177,46 @@ class roomScreen extends Component {
       })}
       </div>
     );
+    const style = {
+      'backgroundColor': '#f2e6ff'
+    }
     return (
         <div className="room-screen">
+        <Modal show={this.state.showModal} onClose={this.close} closeOnBlur={this.close}>
+        <Modal.Card>
+          <Modal.Card.Head style={style} onClick={this.close}>
+            <Modal.Card.Title>Yeey! This is your new amazing playlist</Modal.Card.Title>
+          </Modal.Card.Head>
+          <Modal.Card.Body style={style}>
+            <Media>
+              <Media.Item renderas="figure" position="left">
+                <Image renderas="p" size={64} alt="64x64" src="http://bulma.io/images/placeholders/128x128.png" />
+              </Media.Item>
+              <Media.Item>
+                <Content >
+                  <p>
+                    <strong>{this.global_name}</strong>
+                    <br />
+                    A list of songs here maybe?
+                  </p>
+                </Content>
+                <Level breakpoint="mobile">
+                  <Level.Side align="left">
+                  {shareContext}
+                  </Level.Side>
+                </Level>
+              </Media.Item>
+            </Media>
+          </Modal.Card.Body>
+          <Modal.Card.Foot style={{ alignItems: 'center', justifyContent: 'center', backgroundColor: '#f2e6ff' }}>
+            <p>Additonal Info</p>
+          </Modal.Card.Foot>
+        </Modal.Card>
+        </Modal>
             {users}
-            <Button onClick={() => this.generatePlayList()}>
+            <SpotifyButton onClick={() => this.generatePlayList()}>
             MASH PLAYLIST
-            </Button>
+            </SpotifyButton>
         </div>
     );
   }

@@ -5,8 +5,7 @@ import './App.css';
 import Login from './screens/login/loginScreen.js';
 import Room from './screens/room/roomScreen.js';
 import queryString from 'query-string';
-import {Button} from 'react-bulma-components/full';
-
+import notes from './mouse_assets/notes.svg';
 
 class App extends Component {
 
@@ -31,7 +30,9 @@ class App extends Component {
       window.location.hash = '';
     }
 
+
   }
+
 
   render() {
     let view = null;

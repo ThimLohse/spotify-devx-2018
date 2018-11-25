@@ -35,10 +35,10 @@ class userComponent extends Component {
   updatePosition() {
       var dx = this.state.dx;
       var dy = this.state.dy;
-      if (this.state.xpos >= window.innerWidth-30 || this.state.xpos < 0) {
+      if (this.state.xpos >= window.innerWidth-70 || this.state.xpos < 0) {
           dx = - dx;
       }
-      if (this.state.ypos >= window.innerHeight-30 || this.state.ypos < 0) {
+      if (this.state.ypos >= window.innerHeight-70 || this.state.ypos < 0) {
           dy = - dy;
       }
       this.setState({
