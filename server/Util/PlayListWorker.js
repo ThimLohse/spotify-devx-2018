@@ -55,7 +55,8 @@ export class UserHandler {
         {
           name: (tempList[key].user_data.display_name == null || tempList[key].user_data.display_name.length == 25 ? 'Stranger Danger' : tempList[key].user_data.display_name),
           id: key,
-          metadata: tempList[key].metadata
+          metadata: tempList[key].metadata,
+          country: tempList[key].user_data.country
         })
     }
     return tiny_list;
