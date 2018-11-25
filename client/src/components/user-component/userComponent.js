@@ -6,6 +6,10 @@ class userComponent extends Component {
       super(props);
       this.userComponentId = null;
       this.state = {
+          //currSize: this.props.size,
+          //dsize: this.props.size*.0025,
+          maxSize: this.props.size,
+          minSize: this.props.size*.5,
           dx: Math.random(),
           dy: Math.random(),
           xpos: Math.floor(this.getRandomInt(window.innerWidth)/2 + window.innerWidth/5),
@@ -22,10 +26,8 @@ class userComponent extends Component {
   }
 
   componentDidMount() {
-      this.userComponentId = setInterval(
-        () => this.updatePosition(),
-        10
-      );
+      setInterval( () => this.updatePosition(), 10);
+      //setInterval( () => this.updateSize(), 20);
   }
   componentWillUnmount(){
     clearInterval(this.userComponentId);
@@ -33,12 +35,15 @@ class userComponent extends Component {
   }
 
   updatePosition() {
+      console.log(this.props.generatedPlaylist);
       var dx = this.state.dx;
       var dy = this.state.dy;
-      if (this.state.xpos >= window.innerWidth-70 || this.state.xpos < 0) {
+
+      if (this.state.xpos >= window.innerWidth-window.innerHeight*0.1 || this.state.xpos < 0) {
           dx = - dx;
       }
-      if (this.state.ypos >= window.innerHeight-70 || this.state.ypos < 0) {
+      if (this.state.ypos >= window.innerHeight-window.innerHeight*0.1 || this.state.ypos < 0) {
+
           dy = - dy;
       }
       this.setState({
@@ -49,18 +54,55 @@ class userComponent extends Component {
       })
   }
 
+  /*
+  updateSize() {
+      var dsize = this.state.dsize;
+      if (this.state.currSize > this.state.maxSize || this.state.currSize < this.state.minSize) {
+          dsize = -dsize;
+      }
+      this.setState({
+          dsize: dsize,
+          currSize: this.state.currSize + dsize,
+      })
+  }
+  */
+
   render() {
-    const pos = {
-        position: 'absolute',
-        left: this.state.xpos,
-        bottom: this.state.ypos,
-        backgroundColor: this.props.color,
+    var pos = {};
+
+    if(this.props.generatedPlaylist!==true){
+        pos = {
+            position: 'absolute',
+            left: this.state.xpos,
+            bottom: this.state.ypos,
+            backgroundColor: this.props.color, 
+            //maxWidth: this.state.currSize,
+            //maxHeight: this.state.currSize,
+            //width: this.state.currSize,
+            //height: this.state.currSize
+        }
+    } else {
+        pos = {
+            position: 'absolute',
+            left: window.innerWidth-window.innerHeight*0.2 + window.innerHeight*0.05*Math.pow(-1,this.props.index),
+            bottom: window.innerHeight-window.innerHeight*0.1*(this.props.index+2),
+            backgroundColor: this.props.color,
+            //maxWidth: this.state.maxSize,
+            //maxHeight: this.state.maxSize, 
+            //height: this.state.maxSize,
+            //width: this.state.maxSize,
+        }
     }
 
     return (
       <div className="user-container" style={pos}>
-      <img className="user-image" src={this.props.avatar} alt="user avatar"/>
-        <p>{this.props.name}</p>
+        <img className="user-image" src={this.props.avatar} alt="user avatar"/>
+        <h2>{this.props.name}</h2>
+        
+        <div className="user-info">
+            <div className="user-info-arrow"/>
+            <p>{this.props.name}</p> 
+        </div>
       </div>
     );
   }

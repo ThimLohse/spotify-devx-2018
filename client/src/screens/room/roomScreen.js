@@ -23,10 +23,12 @@ class roomScreen extends Component {
       refresh_token: props.refresh_token,
       userList: [],
       colors: ['#509BF5', '#57B560','#57B560','#F474A0', '#1D3264', '#FF4632','#F49B23'],
+
       images: svgs,
       showModal: false,
       shareContent: 'Get a link to share ❤️',
-      copy: false
+      copy: false,
+      generatedPlaylist: false,
     }
 
     this.global_top5 = [];
@@ -52,6 +54,7 @@ class roomScreen extends Component {
 
   generatePlayList(){
     this.socket.emit('generate_playlist');
+    this.setState({ generatedPlaylist: true })  
   }
 
   async createPlaylist(tracks){
@@ -195,8 +198,10 @@ class roomScreen extends Component {
     })
 
     this.socket.on('user_list_changed', (new_list) => {
+
       let tempList = [...new_list];
       this.setState({userList: [...tempList]});
+
       console.log(new_list);
     })
   }
@@ -218,10 +223,9 @@ class roomScreen extends Component {
 
   }
 
-  //this.getRandomInt(0,this.state.images.length)
-
   render() {
-
+    let userSize = window.innerHeight/Math.ceil(this.state.userList.length/10)*.1;
+    
     const saveLink = this.state.copy;
     let shareContext;
 
@@ -233,12 +237,14 @@ class roomScreen extends Component {
     let users = null;
     users = (
       <div>
-      {this.state.userList.map((user, index) => {
-        return <UserComponent name={user.name} key={user.id} index={index}
-        avatar={this.state.images[index]} color={this.state.colors[index]}/>
-      })}
+        {this.state.userList.map((user, index) => {
+          return <UserComponent name={user.name} key={user.id} index={index}
+            avatar={this.state.images[index]} color={this.state.colors[index]} generatedPlaylist={this.state.generatedPlaylist}
+          size={userSize}/>
+        })}
       </div>
     );
+    
     const style = {
       'backgroundColor': '#f2e6ff'
     }

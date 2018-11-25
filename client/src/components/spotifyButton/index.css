@@ -12,7 +12,6 @@
     font-size: 1em;
     padding: 1% 0% 1% 0%;
     transition:.25s;
-    box-shadow: 0 5px 15px 0px rgba(0,0,0,0.6);
 }
 
 .spotify-button:hover{

@@ -5,11 +5,16 @@
   "author": "Thim Lohse",
   "license": "MIT",
   "scripts": {
+    "clean": "rm -rf build && mkdir dist",
     "client": "cd ./../client && yarn start",
     "build-client": "cd ./../client && yarn build",
     "server": "nodemon --exec babel-node bin/dev",
+    "build-server": "babel -d ./dist ./../server -s --ignore 'node_modules'",
+    "build": "yarn clean && yarn build-client && yarn build-server",
     "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\"",
-    "start": "yarn build-client && yarn server"
+    "client-build-start": "yarn build-client && yarn server",
+    "start": "node ./dist/index.js",
+    "clean-build": "rm -rf dist && cd ./../client && rm -rf build"
   },
   "dependencies": {
     "body-parser": "^1.18.3",
