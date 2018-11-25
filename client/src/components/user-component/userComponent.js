@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import style from './index.css';
+import { flag } from 'country-code-emoji';
 
 class userComponent extends Component {
   constructor(props) {
@@ -75,7 +76,7 @@ class userComponent extends Component {
             position: 'absolute',
             left: this.state.xpos,
             bottom: this.state.ypos,
-            backgroundColor: this.props.color, 
+            backgroundColor: this.props.color,
             //maxWidth: this.state.currSize,
             //maxHeight: this.state.currSize,
             //width: this.state.currSize,
@@ -88,7 +89,7 @@ class userComponent extends Component {
             bottom: window.innerHeight-window.innerHeight*0.1*(this.props.index+2),
             backgroundColor: this.props.color,
             //maxWidth: this.state.maxSize,
-            //maxHeight: this.state.maxSize, 
+            //maxHeight: this.state.maxSize,
             //height: this.state.maxSize,
             //width: this.state.maxSize,
         }
@@ -98,10 +99,10 @@ class userComponent extends Component {
       <div className="user-container" style={pos}>
         <img className="user-image" src={this.props.avatar} alt="user avatar"/>
         <h2>{this.props.name}</h2>
-        
+
         <div className="user-info">
             <div className="user-info-arrow"/>
-            <p>{this.props.name}</p> 
+            <p>{this.props.name}</p>
         </div>
       </div>
     );
