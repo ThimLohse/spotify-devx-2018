@@ -6,7 +6,6 @@ import spotifyWebApi from 'spotify-web-api-node';
 import IO from 'socket.io';
 import http from 'http';
 import prettyJson from 'prettyjson';
-import Api from './Router/Api';
 
 // UTIL CLASSES
 import {User, UserHandler} from './Util/PlayListWorker';
@@ -34,7 +33,7 @@ const spotifyAPI = new spotifyWebApi({
 
 
 /** Setup to serve static content **/
-//app.use(express.static(path.join(__dirname, path.relative(__dirname, './../client/build'))));
+app.use(express.static(path.join(__dirname, path.relative(__dirname, './../client/build'))));
 
 
 
@@ -46,14 +45,16 @@ io.on('connection', (socket) => {
   socket.on('disconnect', () => {
     console.log(`${socket.id} disconnected`);
     userHandler.removeUser(socket.id);
-    io.emit('user_list_changed', userHandler.getFrontendUserList());
+    let users = userHandler.getFrontendUserList();
+    io.emit('user_list_changed', users);
   })
 
   socket.on('user_data', (data) => {
     let tracks = [];
     let user = new User(socket.id, data.user_data, data.top_tracks, data.playlists);
     userHandler.addUser(user.getCompiledUser());
-    io.emit('user_list_changed', userHandler.getFrontendUserList());
+    let users = userHandler.getFrontendUserList();
+    io.emit('user_list_changed', users);
 
     //console.log(prettyJson.render(userHandler.getUserList(), {}));
 

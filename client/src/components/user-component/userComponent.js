@@ -4,7 +4,7 @@ import style from './index.css';
 class userComponent extends Component {
   constructor(props) {
       super(props);
-      
+      this.userComponentId = null;
       this.state = {
           //currSize: this.props.size,
           //dsize: this.props.size*.0025,
@@ -12,8 +12,8 @@ class userComponent extends Component {
           minSize: this.props.size*.5,
           dx: Math.random(),
           dy: Math.random(),
-          xpos: this.getRandomInt(window.innerWidth),
-          ypos: this.getRandomInt(window.innerHeight),
+          xpos: Math.floor(this.getRandomInt(window.innerWidth)/2 + window.innerWidth/5),
+          ypos: Math.floor(this.getRandomInt(window.innerHeight)/2 + window.innerHeight/5),
       }
   }
 
@@ -29,15 +29,21 @@ class userComponent extends Component {
       setInterval( () => this.updatePosition(), 10);
       //setInterval( () => this.updateSize(), 20);
   }
+  componentWillUnmount(){
+    clearInterval(this.userComponentId);
+    this.userComponentId = null;
+  }
 
   updatePosition() {
       console.log(this.props.generatedPlaylist);
       var dx = this.state.dx;
       var dy = this.state.dy;
+
       if (this.state.xpos >= window.innerWidth-window.innerHeight*0.1 || this.state.xpos < 0) {
           dx = - dx;
       }
       if (this.state.ypos >= window.innerHeight-window.innerHeight*0.1 || this.state.ypos < 0) {
+
           dy = - dy;
       }
       this.setState({
