@@ -4,13 +4,14 @@
     border-radius: 50px;
     width: 100%;
     max-height: 50px;
-    max-width: 350px;
+    max-width: 550px;
     text-align: center;
     color: white;
     max-height: 10vh;
     border: 0px;
     font-size: 1em;
-    padding: 1% 0% 1% 0%;
+    padding: 2% 5% 2% 5%;
+    font-weight: bold;
     transition:.25s;
 }
 

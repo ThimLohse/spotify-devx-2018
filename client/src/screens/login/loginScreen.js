@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import style from './index.css';
 import Button from '../../components/spotifyButton/spotifyButton.js';
+import pawPrint from '../../assets/pawprint.svg';
 
 export default class LoginScreen extends Component {
 
@@ -28,14 +29,17 @@ export default class LoginScreen extends Component {
     return (
       <div className="login-screen">
         <div id="content">
-          <h1 className="title">Welcome to [Name of our Hack]</h1>
+          <div className="title-wrapper">
+              <img src={pawPrint}/>
+              <h1 className="title">Welcome to Zoocial</h1>
+          </div>
           <p className="description">
-            _________ creates a playlist that mixes the <br/>
-            music tastes of everyone in the room.<br/>
+            Zoocial creates a playlist that mixes the music tastes of everyone in the room.<br/>
           </p>
           <p className="description">
-            Less arguing, more time for music.
+            Less time making your playlist, more time listening.
           </p>
+          <p className="description"/>
           <Button onClick={() => this.redirectHandler()}>LOG IN TO SPOTIFY</Button>
         </div>
       </div>
